@@ -9,6 +9,8 @@ import SignInPage from './pages/common/SignInPage';
 import ForbiddenPage from './pages/common/ForbiddenPage';
 import NotFoundPage from './pages/common/NotFoundPage';
 import LandingPage from './pages/common/LandingPage';
+import SignUpPage from './pages/common/SignUpPage';
+
 const SHARED_PATHS = ['/settings', '/announcements'];
 
 export default function AppRoutes() {
@@ -17,6 +19,7 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/forbidden" element={<ForbiddenPage />} />
             <Route
                 path="/"
