@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useData } from '../../hooks/useData';
 import { ROLES, ACCOUNT_STATUS } from '../../data/statusValues';
 import { HOME_BY_ROLE } from '../../utils/roles';
+import { generateActivationCode } from '../../utils/activation';
 
 const EMAIL_PATTERN = /^[^\s@]+@kfupm\.edu\.sa$/i;
 
@@ -32,7 +33,7 @@ export default function SignUpPage() {
         confirm: '',
     });
     const [errors, setErrors] = useState({});
-    const [done, setDone] = useState(false);
+    const [created, setCreated] = useState(null);
 
     if (currentUser) {
         return <Navigate to={HOME_BY_ROLE[currentUser.role]} replace />;
@@ -63,29 +64,38 @@ export default function SignUpPage() {
         if (Object.keys(next).length > 0) return;
 
         const id = `u-${Date.now()}`;
+        const activationCode = generateActivationCode();
+        const email = form.email.trim().toLowerCase();
         updateCollection('users', (list) => [
             ...list,
             {
                 id,
                 name: form.name.trim(),
-                email: form.email.trim().toLowerCase(),
+                email,
                 password: form.password,
                 role: form.role,
-                status: ACCOUNT_STATUS.ACTIVE,
+                status: ACCOUNT_STATUS.PENDING,
+                activationCode,
             },
         ]);
         addAuditEvent({ userId: id, action: 'account_created' });
-        setDone(true);
+        setCreated({ email, activationCode });
     }
 
-    if (done) {
+    if (created) {
         return (
             <main className="center-card">
-                <h1 className="page__title">Account created</h1>
-                <p className="page__subtitle">Your account is ready. You can sign in now.</p>
-                <p style={{ marginTop: 24 }}>
-                    <Link className="btn" to="/sign-in" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
-                        Back to sign in
+                <h1 className="page__title">Check your email</h1>
+                <p className="page__subtitle">
+                    We sent an activation link to {created.email}. Open it to activate your account, then sign in.
+                </p>
+                <p className="hint">
+                    Prototype note: no real email is sent. Use the button below to open the link as if it was
+                    in your inbox.
+                </p>
+                <p style={{ marginTop: 16 }}>
+                    <Link className="btn" to={`/activate/${created.activationCode}`}>
+                        Open activation email (demo)
                     </Link>
                 </p>
             </main>
@@ -95,7 +105,7 @@ export default function SignUpPage() {
     return (
         <main className="center-card">
             <h1 className="page__title">Create an account</h1>
-            <p className="page__subtitle">For students and faculty.</p>
+            <p className="page__subtitle">For students and faculty. We will email you an activation link.</p>
             <form onSubmit={handleSubmit} noValidate style={{ marginTop: 24 }}>
                 <Field id="name" label="Full name" error={errors.name}>
                     <input

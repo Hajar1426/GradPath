@@ -10,6 +10,7 @@ import ForbiddenPage from './pages/common/ForbiddenPage';
 import NotFoundPage from './pages/common/NotFoundPage';
 import LandingPage from './pages/common/LandingPage';
 import SignUpPage from './pages/common/SignUpPage';
+import ActivatePage from './pages/common/ActivatePage';
 
 const SHARED_PATHS = ['/settings', '/announcements'];
 
@@ -20,6 +21,7 @@ export default function AppRoutes() {
         <Routes>
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/activate/:code" element={<ActivatePage />} />
             <Route path="/forbidden" element={<ForbiddenPage />} />
             <Route
                 path="/"
