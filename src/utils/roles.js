@@ -40,3 +40,7 @@ export const NAV_BY_ROLE = {
         { to: '/settings', label: 'nav.settings' },
     ],
 };
+export function labelOf(key) {
+    const word = key.split('.').pop();
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}

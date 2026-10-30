@@ -1,0 +1,12 @@
+:root {
+    --color-sidebar: #1b2f3f;
+    --color-primary: #2e6b53;
+    --color-bg: #f0efea;
+    --color-surface: #ffffff;
+    --color-text: #14282f;
+    --color-muted: #5d6d74;
+    --color-border: #e4e1d8;
+    --color-danger: #b3261e;
+    --radius: 12px;
+    --font: 'Poppins', system-ui, sans-serif;
+}
