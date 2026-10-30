@@ -8,7 +8,7 @@ import PlaceholderPage from './pages/common/PlaceholderPage';
 import SignInPage from './pages/common/SignInPage';
 import ForbiddenPage from './pages/common/ForbiddenPage';
 import NotFoundPage from './pages/common/NotFoundPage';
-
+import LandingPage from './pages/common/LandingPage';
 const SHARED_PATHS = ['/settings', '/announcements'];
 
 export default function AppRoutes() {
@@ -20,7 +20,7 @@ export default function AppRoutes() {
             <Route path="/forbidden" element={<ForbiddenPage />} />
             <Route
                 path="/"
-                element={<Navigate to={currentUser ? HOME_BY_ROLE[currentUser.role] : '/sign-in'} replace />}
+                element={currentUser ? <Navigate to={HOME_BY_ROLE[currentUser.role]} replace /> : <LandingPage />}
             />
 
             {Object.values(ROLES).map((role) => (
