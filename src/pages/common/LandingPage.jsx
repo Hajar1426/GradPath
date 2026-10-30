@@ -32,7 +32,7 @@ export default function LandingPage() {
                         <Logo />
                         Grad Path
                     </div>
-                    <Link className="btn btn--outline-light" to="/sign-in">Sign in</Link>
+                    <Link className="btn btn--outline-light" to="/sign-up">Sign up</Link>
                 </div>
 
                 <div className="landing__heroBody">
