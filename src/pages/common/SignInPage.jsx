@@ -5,6 +5,8 @@ import { useData } from '../../hooks/useData';
 import { HOME_BY_ROLE } from '../../utils/roles';
 import { generateActivationCode } from '../../utils/activation';
 import BackLink from '../../components/common/BackLink';
+import Input from '../../components/common/Input';
+import Button from '../../components/common/Button';
 
 const MESSAGES = {
     invalid: 'Email or password is incorrect.',
@@ -58,14 +60,8 @@ export default function SignInPage() {
             <h1 className="page__title">Sign in</h1>
             <p className="page__subtitle">Use your university email.</p>
             <form onSubmit={handleSubmit} noValidate style={{ marginTop: 24 }}>
-                <div className="field">
-                    <label htmlFor="email">Email</label>
-                    <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <div className="field">
-                    <label htmlFor="password">Password</label>
-                    <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </div>
+                <Input id="email" label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input id="password" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 {error && <p className="error" role="alert">{error}</p>}
                 {pending && !resendCode && (
                     <p>
@@ -80,8 +76,7 @@ export default function SignInPage() {
                         <Link to={`/activate/${resendCode}`}>Open activation email (demo)</Link>
                     </p>
                 )}
-                <button className="btn" type="submit" style={{ marginTop: 8 }}>Sign in</button>
-            </form>
+                <Button type="submit" style={{ marginTop: 8 }}>Sign in</Button>            </form>
             <p className="hint">
                 New here? <Link to="/sign-up">Create an account</Link>
             </p>
