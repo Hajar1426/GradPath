@@ -74,3 +74,15 @@
 .tabs { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 16px; background: #f0efea; border-radius: 12px; }
 .tabs__tab { height: 36px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent; color: var(--color-text); font-size: 14px; font-weight: 500; cursor: pointer; }
 .tabs__tab[aria-selected='true'] { background: var(--color-primary); color: #fff; }
+
+/* Toast */
+.toast-region { position: fixed; right: 24px; bottom: 24px; z-index: 1000; display: flex; flex-direction: column; gap: 10px; max-width: 360px; }
+.toast { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; border-left: 4px solid; background: var(--color-sidebar); color: #fff; font-size: 14px; line-height: 1.4; box-shadow: 0 10px 30px rgba(20, 40, 47, 0.3); }
+.toast--success { border-left-color: #8fd6b4; }
+.toast--error { border-left-color: #f08a8a; }
+.toast--warning { border-left-color: #f1c75a; }
+.toast--info { border-left-color: #9db6f2; }
+.toast__icon { flex: none; font-weight: 700; }
+.toast__text { flex: 1; }
+.toast__close { flex: none; padding: 0; border: 0; background: none; color: inherit; font-size: 18px; line-height: 1; cursor: pointer; }
+@media (max-width: 800px) { .toast-region { left: 16px; right: 16px; bottom: 16px; max-width: none; } }
