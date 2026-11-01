@@ -5,6 +5,7 @@ import { useData } from '../../hooks/useData';
 import { ROLES, ACCOUNT_STATUS } from '../../data/statusValues';
 import { HOME_BY_ROLE } from '../../utils/roles';
 import { generateActivationCode } from '../../utils/activation';
+import BackLink from '../../components/common/BackLink.jsx';
 
 const EMAIL_PATTERN = /^[^\s@]+@kfupm\.edu\.sa$/i;
 
@@ -85,6 +86,7 @@ export default function SignUpPage() {
     if (created) {
         return (
             <main className="center-card">
+
                 <h1 className="page__title">Check your email</h1>
                 <p className="page__subtitle">
                     We sent an activation link to {created.email}. Open it to activate your account, then sign in.
@@ -104,6 +106,7 @@ export default function SignUpPage() {
 
     return (
         <main className="center-card">
+            <BackLink />
             <h1 className="page__title">Create an account</h1>
             <p className="page__subtitle">For students and faculty. We will email you an activation link.</p>
             <form onSubmit={handleSubmit} noValidate style={{ marginTop: 24 }}>
