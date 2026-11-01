@@ -13,7 +13,9 @@ export const NAV_BY_ROLE = {
         { to: '/student/advisors', label: 'nav.advisors' },
         { to: '/student/plan', label: 'nav.plan' },
         { to: '/student/reports', label: 'nav.reports' },
+        { to: '/student/profile', label: 'nav.profile' ,hidden: true},
         { to: '/announcements', label: 'nav.announcements' },
+        { to: '/notifications', label: 'nav.notifications' },
         { to: '/settings', label: 'nav.settings' },
     ],
     [ROLES.ADVISOR]: [
@@ -21,7 +23,9 @@ export const NAV_BY_ROLE = {
         { to: '/advisor/students', label: 'nav.students' },
         { to: '/advisor/reports', label: 'nav.reports' },
         { to: '/advisor/alerts', label: 'nav.alerts' },
+        { to: '/advisor/profile', label: 'nav.profile' ,hidden: true},
         { to: '/announcements', label: 'nav.announcements' },
+        { to: '/notifications', label: 'nav.notifications' },
         { to: '/settings', label: 'nav.settings' },
     ],
     [ROLES.COORDINATOR]: [
@@ -30,6 +34,7 @@ export const NAV_BY_ROLE = {
         { to: '/coordinator/import', label: 'nav.import' },
         { to: '/coordinator/statistics', label: 'nav.statistics' },
         { to: '/coordinator/announcements', label: 'nav.announcements' },
+        { to: '/notifications', label: 'nav.notifications' },
         { to: '/settings', label: 'nav.settings' },
     ],
     [ROLES.ADMIN]: [
@@ -37,6 +42,7 @@ export const NAV_BY_ROLE = {
         { to: '/admin/users', label: 'nav.users' },
         { to: '/admin/audit', label: 'nav.audit' },
         { to: '/admin/security', label: 'nav.security' },
+        { to: '/notifications', label: 'nav.notifications' },
         { to: '/settings', label: 'nav.settings' },
     ],
 };
