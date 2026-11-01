@@ -11,6 +11,7 @@ import NotFoundPage from './pages/common/NotFoundPage';
 import LandingPage from './pages/common/LandingPage';
 import SignUpPage from './pages/common/SignUpPage';
 import ActivatePage from './pages/common/ActivatePage';
+import NotificationsPage from './pages/common/NotificationsPage';
 
 const SHARED_PATHS = ['/settings', '/announcements'];
 
@@ -64,6 +65,7 @@ export default function AppRoutes() {
                 <Route element={<AppLayout />}>
                     <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
                     <Route path="/announcements" element={<PlaceholderPage title="Announcements" />} />
+                    <Route path="/notifications" element={<NotificationsPage />} />
                 </Route>
             </Route>
 

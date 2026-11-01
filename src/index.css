@@ -3,7 +3,7 @@
 @import './styles/layout.css';
 @import './styles/controls.css';
 @import './styles/landing.css';
-
+@import './styles/notifications.css';
 
 * { box-sizing: border-box; }
 body {

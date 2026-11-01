@@ -1,0 +1,7 @@
+export const notifications = [
+    { id: 'n-1', userId: 'u-student-1', title: 'Welcome to GradPath', body: 'Complete your research profile to get started.', link: '/student', at: '2026-10-30T09:00:00.000Z', read: false },
+    { id: 'n-2', userId: 'u-student-1', title: 'Advisor availability updated', body: 'Dr. Yahya Osais is now available for new students.', link: '/student/advisors', at: '2026-10-29T14:30:00.000Z', read: false },
+    { id: 'n-3', userId: 'u-student-1', title: 'Announcement published', body: 'The Term 261 course offerings are published.', link: '/announcements', at: '2026-10-28T08:15:00.000Z', read: true },
+    { id: 'n-4', userId: 'u-advisor-1', title: 'New report submitted', body: 'Sara Alharbi submitted an annual progress report.', link: '/advisor/reports', at: '2026-10-30T11:20:00.000Z', read: false },
+    { id: 'n-5', userId: 'u-coord-1', title: 'Import finished', body: 'The offerings file was imported with 2 invalid rows.', link: '/coordinator/import', at: '2026-10-29T10:05:00.000Z', read: false },
+    { id: 'n-6', userId: 'u-admin-1', title: 'New account created', body: 'A new student signed up. You can review it in User Accounts.', link: '/admin/users', at: '2026-10-30T08:40:00.000Z', read: false },];
