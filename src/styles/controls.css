@@ -46,3 +46,31 @@
 .modal__close { background: none; border: 0; font-size: 24px; line-height: 1; cursor: pointer; color: var(--color-muted); }
 .modal__body { font-size: 14px; line-height: 1.6; }
 .modal__footer { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Search bar */
+.searchbar { position: relative; max-width: 320px; }
+.searchbar svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--color-muted); pointer-events: none; }
+.searchbar__input { width: 100%; height: 40px; padding: 0 12px 0 38px; border: 1px solid var(--color-border); border-radius: 10px; font-size: 14px; background: #fff; }
+
+/* Table */
+.table-wrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th { text-align: left; font-weight: 500; color: var(--color-muted); padding: 12px; border-bottom: 1px solid var(--color-border); white-space: nowrap; }
+.table td { padding: 14px 12px; border-bottom: 1px solid #efede6; vertical-align: middle; }
+.table__sort { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
+.table__sort:hover { color: var(--color-text); }
+.table__footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 16px; font-size: 13px; color: var(--color-muted); }
+
+/* Pagination */
+.pagination { display: flex; align-items: center; gap: 6px; }
+.pagination__btn { min-width: 32px; height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: #f0efea; font-size: 13px; cursor: pointer; }
+.pagination__btn[aria-current='page'] { background: var(--color-primary); color: #fff; }
+.pagination__btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.pagination__gap { padding: 0 4px; color: var(--color-muted); }
+
+/* Tabs */
+.tabs { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 16px; background: #f0efea; border-radius: 12px; }
+.tabs__tab { height: 36px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent; color: var(--color-text); font-size: 14px; font-weight: 500; cursor: pointer; }
+.tabs__tab[aria-selected='true'] { background: var(--color-primary); color: #fff; }
