@@ -14,6 +14,16 @@ import ActivatePage from './pages/common/ActivatePage';
 
 const SHARED_PATHS = ['/settings', '/announcements'];
 
+// Finished pages: each member adds a line  '/path': PageComponent
+const PAGES = {
+    // '/student/advisors': AdvisorDirectoryPage,
+};
+
+// Pages that are not in the sidebar (details pages), per role
+const EXTRA_ROUTES = {
+    // [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorPublicProfilePage /> }],
+};
+
 export default function AppRoutes() {
     const { currentUser } = useAuth();
 
@@ -33,13 +43,19 @@ export default function AppRoutes() {
                     <Route element={<AppLayout />}>
                         {NAV_BY_ROLE[role]
                             .filter((link) => !SHARED_PATHS.includes(link.to))
-                            .map((link) => (
-                                <Route
-                                    key={link.to}
-                                    path={link.to}
-                                    element={<PlaceholderPage title={labelOf(link.label)} />}
-                                />
-                            ))}
+                            .map((link) => {
+                                const Page = PAGES[link.to];
+                                return (
+                                    <Route
+                                        key={link.to}
+                                        path={link.to}
+                                        element={Page ? <Page /> : <PlaceholderPage title={labelOf(link.label)} />}
+                                    />
+                                );
+                            })}
+                        {(EXTRA_ROUTES[role] ?? []).map((route) => (
+                            <Route key={route.path} path={route.path} element={route.element} />
+                        ))}
                     </Route>
                 </Route>
             ))}
