@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useData } from '../../hooks/useData';
 import { HOME_BY_ROLE } from '../../utils/roles';
 import { generateActivationCode } from '../../utils/activation';
+import BackLink from '../../components/common/BackLink';
 
 const MESSAGES = {
     invalid: 'Email or password is incorrect.',
@@ -53,6 +54,7 @@ export default function SignInPage() {
 
     return (
         <main className="center-card">
+            <BackLink />
             <h1 className="page__title">Sign in</h1>
             <p className="page__subtitle">Use your university email.</p>
             <form onSubmit={handleSubmit} noValidate style={{ marginTop: 24 }}>
