@@ -4,6 +4,7 @@
 @import './styles/controls.css';
 @import './styles/landing.css';
 @import './styles/notifications.css';
+@import './styles/settings.css';
 
 * { box-sizing: border-box; }
 body {

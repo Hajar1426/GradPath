@@ -6,6 +6,7 @@ import { ROLES, ACCOUNT_STATUS } from '../../data/statusValues';
 import { HOME_BY_ROLE } from '../../utils/roles';
 import { generateActivationCode } from '../../utils/activation';
 import BackLink from '../../components/common/BackLink.jsx';
+import Input from '../../components/common/Input';
 
 const EMAIL_PATTERN = /^[^\s@]+@kfupm\.edu\.sa$/i;
 
@@ -135,26 +136,10 @@ export default function SignUpPage() {
                         <option value={ROLES.ADVISOR}>Faculty member (advisor)</option>
                     </select>
                 </Field>
-                <Field id="password" label="Password" error={errors.password}>
-                    <input
-                        id="password"
-                        type="password"
-                        value={form.password}
-                        onChange={(e) => setField('password', e.target.value)}
-                        aria-invalid={!!errors.password}
-                        aria-describedby={errors.password ? 'password-error' : undefined}
-                    />
-                </Field>
-                <Field id="confirm" label="Confirm password" error={errors.confirm}>
-                    <input
-                        id="confirm"
-                        type="password"
-                        value={form.confirm}
-                        onChange={(e) => setField('confirm', e.target.value)}
-                        aria-invalid={!!errors.confirm}
-                        aria-describedby={errors.confirm ? 'confirm-error' : undefined}
-                    />
-                </Field>
+                <Input id="password" label="Password" type="password" value={form.password} error={errors.password}
+                       onChange={(e) => setField('password', e.target.value)} />
+                <Input id="confirm" label="Confirm password" type="password" value={form.confirm} error={errors.confirm}
+                       onChange={(e) => setField('confirm', e.target.value)} />
                 <button className="btn" type="submit">Create account</button>
             </form>
             <p className="hint">

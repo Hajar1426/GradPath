@@ -12,8 +12,9 @@ import LandingPage from './pages/common/LandingPage';
 import SignUpPage from './pages/common/SignUpPage';
 import ActivatePage from './pages/common/ActivatePage';
 import NotificationsPage from './pages/common/NotificationsPage';
+import SettingsPage from './pages/common/SettingsPage';
 
-const SHARED_PATHS = ['/settings', '/announcements'];
+const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
 // Finished pages: each member adds a line  '/path': PageComponent
 const PAGES = {
@@ -63,7 +64,7 @@ export default function AppRoutes() {
 
             <Route element={<ProtectedRoute />}>
                 <Route element={<AppLayout />}>
-                    <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
+                    <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/announcements" element={<PlaceholderPage title="Announcements" />} />
                     <Route path="/notifications" element={<NotificationsPage />} />
                 </Route>
