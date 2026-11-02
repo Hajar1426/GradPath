@@ -51,27 +51,18 @@ export default function NotificationsPage() {
                 ) : (
                     <ul className="notice-list">
                         {visible.map((n) => (
-                            <li key={n.id} className={`notice${n.read ? '' : ' notice--unread'}`}>
-                                <div>
-                                    <p className="notice__title">
+                            <li key={n.id} className={'notif' + (n.read ? '' : ' notif--unread')}>
+                                {n.link ? (
+                                    <Link to={n.link} className="notif__title" onClick={() => markRead(n.id)}>
                                         {n.title}
-                                        {!n.read && <StatusBadge status="new" label="Unread" />}
-                                    </p>
-                                    <p className="notice__body">{n.body}</p>
-                                    <span className="notice__time">{formatDateTime(n.at)}</span>
-                                </div>
-                                <div className="notice__actions">
-                                    {n.link && (
-                                        <Link className="btn btn--ghost" to={n.link} onClick={() => markRead(n.id)}>
-                                            Open
-                                        </Link>
-                                    )}
-                                    {!n.read && (
-                                        <Button variant="ghost" onClick={() => markRead(n.id)}>
-                                            Mark as read
-                                        </Button>
-                                    )}
-                                </div>
+                                    </Link>
+                                ) : (
+                                    <button type="button" className="notif__title" onClick={() => markRead(n.id)}>
+                                        {n.title}
+                                    </button>
+                                )}
+                                <p className="notif__body">{n.body}</p>
+                                <p className="notif__time">{formatDateTime(n.at)}</p>
                             </li>
                         ))}
                     </ul>

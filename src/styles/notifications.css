@@ -11,3 +11,12 @@
 .topbar__count { display: inline-flex; align-items: center; justify-content: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--color-danger); color: #fff; font-size: 12px; }
 
 @media (max-width: 800px) { .notice { flex-direction: column; } }
+
+.notif { padding: 20px 0; border-bottom: 1px solid #dcdcd6; }
+.notif__title { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: none; font: inherit; font-size: 20px; font-weight: 500; color: #1c2b33; text-decoration: none; cursor: pointer; text-align: left; }
+.notif--unread .notif__title { font-weight: 700; }
+.notif--unread .notif__title::before { content: ''; flex: none; width: 10px; height: 10px; border-radius: 999px; background: #3f6b57; }
+.notif__title:hover { text-decoration: underline; text-underline-offset: 3px; }
+.notif__title:focus-visible { outline: 2px solid #3f6b57; outline-offset: 3px; border-radius: 4px; }
+.notif__body { margin: 6px 0 0; color: #5f6c72; font-size: 17px; }
+.notif__time { margin: 10px 0 0; color: #5f6c72; font-size: 14px; }
