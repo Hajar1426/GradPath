@@ -7,8 +7,8 @@ import { HOME_BY_ROLE } from '../../utils/roles';
 import { generateActivationCode } from '../../utils/activation';
 import BackLink from '../../components/common/BackLink.jsx';
 import Input from '../../components/common/Input';
+import { getEmailError } from '../../utils/emailRules';
 
-const EMAIL_PATTERN = /^[^\s@]+@kfupm\.edu\.sa$/i;
 
 function Field({ id, label, error, children }) {
     return (
@@ -49,8 +49,8 @@ export default function SignUpPage() {
         const next = {};
         const email = form.email.trim();
         if (!form.name.trim()) next.name = 'Enter your full name.';
-        if (!email) next.email = 'Enter your university email.';
-        else if (!EMAIL_PATTERN.test(email)) next.email = 'Use your university email ending in @kfupm.edu.sa.';
+        const emailError = getEmailError(email);
+        if (emailError) next.email = emailError;
         else if (data.users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
             next.email = 'An account with this email already exists.';
         }
