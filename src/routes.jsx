@@ -15,12 +15,14 @@ import NotificationsPage from './pages/common/NotificationsPage';
 import SettingsPage from './pages/common/SettingsPage';
 import ForgotPasswordPage from './pages/common/ForgotPasswordPage';
 import ResetPasswordPage from './pages/common/ResetPasswordPage';
+import UserAccountsPage from './pages/admin/UserAccountsPage';
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
 // Finished pages: each member adds a line  '/path': PageComponent
 const PAGES = {
     // '/student/advisors': AdvisorDirectoryPage,
+    '/admin/users': UserAccountsPage,
 };
 
 // Pages that are not in the sidebar (details pages), per role
