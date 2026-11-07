@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useNotifications } from '../../hooks/useNotifications';
 import { NAV_BY_ROLE, HOME_BY_ROLE, labelOf } from '../../utils/roles';
+import { useAnnouncementCount } from '../../hooks/useAnnouncementCount';
 
 function initials(name) {
     return name
@@ -15,6 +16,8 @@ function initials(name) {
 export default function Sidebar() {
     const { currentUser, signOut } = useAuth();
     const { unreadCount } = useNotifications();
+    const { newCount } = useAnnouncementCount();
+    const counts = { '/notifications': unreadCount, '/announcements': newCount };
     const navigate = useNavigate();
     const links = NAV_BY_ROLE[currentUser.role] ?? [];
     const profileLink = links.find((link) => link.to.endsWith('/profile'));
@@ -60,9 +63,9 @@ export default function Sidebar() {
                     className={({ isActive }) => 'sidebar__link' + (isActive ? ' active' : '')}
                 >
                     {labelOf(link.label)}
-                    {link.to === '/notifications' && unreadCount > 0 && (
-                        <span className="sidebar__count" aria-label={`${unreadCount} unread`}>
-              {unreadCount}
+                    {counts[link.to] > 0 && (
+                        <span className="sidebar__count" aria-label={`${counts[link.to]} new`}>
+              {counts[link.to]}
             </span>
                     )}
                 </NavLink>
