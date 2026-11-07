@@ -62,6 +62,9 @@ export default function SignInPage() {
             <form onSubmit={handleSubmit} noValidate style={{ marginTop: 24 }}>
                 <Input id="email" label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <Input id="password" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <p className="hint">
+                    <Link to="/forgot-password">Forgot password?</Link>
+                </p>
                 {error && <p className="error" role="alert">{error}</p>}
                 {pending && !resendCode && (
                     <p>

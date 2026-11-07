@@ -13,6 +13,8 @@ import SignUpPage from './pages/common/SignUpPage';
 import ActivatePage from './pages/common/ActivatePage';
 import NotificationsPage from './pages/common/NotificationsPage';
 import SettingsPage from './pages/common/SettingsPage';
+import ForgotPasswordPage from './pages/common/ForgotPasswordPage';
+import ResetPasswordPage from './pages/common/ResetPasswordPage';
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
@@ -34,6 +36,8 @@ export default function AppRoutes() {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/activate/:code" element={<ActivatePage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password/:code" element={<ResetPasswordPage />} />
             <Route path="/forbidden" element={<ForbiddenPage />} />
             <Route
                 path="/"
