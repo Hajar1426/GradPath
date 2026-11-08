@@ -53,3 +53,6 @@ export const IMPORT_ROW_STATUS = {
     DUPLICATE: 'duplicate',
     INVALID: 'invalid',
 };
+
+export const DEGREE = { PHD: 'phd', MS: 'ms' };
+export const STUDY_LOAD = { FULL_TIME: 'full_time', PART_TIME: 'part_time' };
