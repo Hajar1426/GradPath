@@ -15,7 +15,8 @@ export default function ActivatePage() {
                 u.id === user.id ? { ...u, status: ACCOUNT_STATUS.ACTIVE, activationCode: null } : u,
             ),
         );
-        addAuditEvent({ userId: user.id, action: 'account_activated' });
+        //addAuditEvent({ userId: user.id, action: 'account_activated' });
+        addAuditEvent({ userId: user.id, actorId: user.id, action: 'account_activated' });
         setDone(true);
     }
 

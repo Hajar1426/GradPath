@@ -140,3 +140,5 @@ a.sidebar__user:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 .filters .field { margin: 0; min-width: 160px; }
 .table__actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .table .btn { height: 36px; padding: 0 14px; font-size: 14px; }
+
+.cell__sub { display: block; font-size: 13px; color: #5f6c72; }
