@@ -117,8 +117,10 @@ export default function UserAccountsPage() {
 
     return (
         <main className="page">
-            <PageHeader title="User accounts" subtitle="Search users, check their status and manage access." />
-
+            <div className="page__toolbar">
+                <PageHeader title="User accounts" subtitle="Search users, check their status and manage access." />
+                <Link className="btn" to="/admin/users/new">Add user</Link>
+            </div>
             <div className="filters">
                 <SearchBar value={query} onChange={setQuery} placeholder="Search by name or email" label="Search users" />
                 <Select label="Role" options={ROLE_OPTIONS} value={role} onChange={(e) => setRole(e.target.value)} />
