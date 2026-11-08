@@ -7,7 +7,7 @@ import Button from '../../components/common/Button';
 
 export default function ResetPasswordPage() {
     const { code } = useParams();
-    const { data, updateCollection, addNotification } = useData();
+    const { data, updateCollection, addNotification, addAuditEvent } = useData();
     const { showToast } = useToast();
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
@@ -43,7 +43,7 @@ export default function ResetPasswordPage() {
                 return { ...rest, password };
             }),
         );
-        addNotification({
+        addAuditEvent({ userId: user.id, actorId: user.id, action: 'password_reset' });        addNotification({
             userId: user.id,
             title: 'Password changed',
             body: 'Your password was changed. If this was not you, contact the administrator.',

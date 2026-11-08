@@ -80,7 +80,7 @@ export default function SignUpPage() {
                 activationCode,
             },
         ]);
-        addAuditEvent({ userId: id, action: 'account_created' });
+        addAuditEvent({ userId: id, actorId: id, action: 'account_created' });
         setCreated({ email, activationCode });
     }
 
