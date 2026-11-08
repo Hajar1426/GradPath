@@ -16,6 +16,7 @@ import SettingsPage from './pages/common/SettingsPage';
 import ForgotPasswordPage from './pages/common/ForgotPasswordPage';
 import ResetPasswordPage from './pages/common/ResetPasswordPage';
 import UserAccountsPage from './pages/admin/UserAccountsPage';
+import AddUserPage from './pages/admin/AddUserPage';
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
@@ -28,6 +29,7 @@ const PAGES = {
 // Pages that are not in the sidebar (details pages), per role
 const EXTRA_ROUTES = {
     // [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorPublicProfilePage /> }],
+    [ROLES.ADMIN]: [{ path: '/admin/users/new', element: <AddUserPage /> }],
 };
 
 export default function AppRoutes() {
