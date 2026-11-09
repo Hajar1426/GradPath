@@ -1,8 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { ROLES } from './data/statusValues';
-import { NAV_BY_ROLE, HOME_BY_ROLE, labelOf } from './utils/roles';
-import ProtectedRoute from './components/layout/ProtectedRoute';
+import { NAV_BY_ROLE, HOME_BY_ROLE, labelOf, BASE_ROLES, ROLES_WITH_ACCESS } from './utils/roles';import ProtectedRoute from './components/layout/ProtectedRoute';
 import AppLayout from './components/layout/AppLayout';
 import PlaceholderPage from './pages/common/PlaceholderPage';
 import SignInPage from './pages/common/SignInPage';
@@ -18,6 +17,7 @@ import ResetPasswordPage from './pages/common/ResetPasswordPage';
 import UserAccountsPage from './pages/admin/UserAccountsPage';
 import AddUserPage from './pages/admin/AddUserPage';
 import AuditLogPage from './pages/admin/AuditLogPage';
+import RolesPage from './pages/admin/RolesPage';
 
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
@@ -27,6 +27,7 @@ const PAGES = {
     // '/student/advisors': AdvisorDirectoryPage,
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
+    '/admin/roles': RolesPage,
 };
 
 // Pages that are not in the sidebar (details pages), per role
@@ -51,8 +52,8 @@ export default function AppRoutes() {
                 element={currentUser ? <Navigate to={HOME_BY_ROLE[currentUser.role]} replace /> : <LandingPage />}
             />
 
-            {Object.values(ROLES).map((role) => (
-                <Route key={role} element={<ProtectedRoute roles={[role]} />}>
+            {BASE_ROLES.map((role) => (
+                <Route key={role} element={<ProtectedRoute roles={ROLES_WITH_ACCESS[role]} />}>
                     <Route element={<AppLayout />}>
                         {NAV_BY_ROLE[role]
                             .filter((link) => !SHARED_PATHS.includes(link.to))
