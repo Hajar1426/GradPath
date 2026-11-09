@@ -16,6 +16,8 @@ const ROLE_OPTIONS = [
     { value: ROLES.ADVISOR, label: 'Advisor' },
     { value: ROLES.COORDINATOR, label: 'Coordinator' },
     { value: ROLES.ADMIN, label: 'Admin' },
+    { value: ROLES.DEAN, label: 'Dean' },
+    { value: ROLES.CHAIRPERSON, label: 'Chairperson' },
 ];
 
 const EMPTY_FORM = { name: '', email: '', role: ROLES.STUDENT, password: '' };

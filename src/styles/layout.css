@@ -142,3 +142,14 @@ a.sidebar__user:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 .table .btn { height: 36px; padding: 0 14px; font-size: 14px; }
 
 .cell__sub { display: block; font-size: 13px; color: #5f6c72; }
+
+.readonly-banner { margin-top: 32px; padding: 12px 18px; border: 1px solid #c3d6e6; border-radius: 12px; background: #e8f0f7; color: #1c3a52; font-size: 15px; }
+.readonly-banner + .page { margin-top: 16px; }
+
+.role-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
+.role-card { padding: 18px; border: 1px solid #dcdcd6; border-radius: 14px; }
+.role-card h2 { margin: 0; font-size: 18px; }
+.role-card p { margin: 8px 0 0; color: #5f6c72; font-size: 15px; }
+.role-card .role-card__count { margin-top: 4px; font-weight: 600; color: #3f6b57; }
+.section-title { margin: 36px 0 0; font-size: 20px; }
+

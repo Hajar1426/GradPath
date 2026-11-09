@@ -84,8 +84,7 @@ export default function SignInPage() {
                 New here? <Link to="/sign-up">Create an account</Link>
             </p>
             <p className="hint">
-                Demo accounts (password demo1234): student@, advisor@, coordinator@ and admin@kfupm.edu.sa
-            </p>
+                Demo accounts (password demo1234): student@, advisor@, coordinator@, admin@, dean@ and chairperson@kfupm.edu.sa            </p>
         </main>
     );
 }

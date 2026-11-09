@@ -19,7 +19,10 @@ const ROLE_OPTIONS = [
     { value: ROLES.STUDENT, label: 'Student' },
     { value: ROLES.ADVISOR, label: 'Advisor' },
     { value: ROLES.COORDINATOR, label: 'Coordinator' },
+    { value: ROLES.DEAN, label: 'Dean' },
+    { value: ROLES.CHAIRPERSON, label: 'Chairperson' },
     { value: ROLES.ADMIN, label: 'Admin' },
+
 ];
 
 const STATUS_OPTIONS = [

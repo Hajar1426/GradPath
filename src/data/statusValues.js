@@ -3,6 +3,8 @@ export const ROLES = {
     ADVISOR: 'advisor',
     COORDINATOR: 'coordinator',
     ADMIN: 'admin',
+    DEAN: 'dean',
+    CHAIRPERSON: 'chairperson',
 };
 
 export const ACCOUNT_STATUS = {

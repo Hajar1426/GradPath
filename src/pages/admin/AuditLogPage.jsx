@@ -13,6 +13,7 @@ const ACTION_LABELS = {
     account_enabled: 'Account enabled',
     activation_resent: 'Activation email resent',
     password_reset: 'Password reset',
+    role_changed: 'Role changed',
 };
 
 function labelFor(action) {
@@ -34,6 +35,7 @@ export default function AuditLogPage() {
             at: event.at,
             action: event.action,
             label: labelFor(event.action),
+            detail: event.detail ?? '',
             userName: user?.name ?? 'Unknown user',
             userEmail: user?.email ?? '',
             actorName: event.actorId ? (actor?.name ?? 'Unknown user') : 'The user',
@@ -63,8 +65,17 @@ export default function AuditLogPage() {
                 </>
             ),
         },
-        { key: 'actorName', header: 'Done by', sortable: true },
-    ];
+        {
+            key: 'label',
+            header: 'Action',
+            sortable: true,
+            render: (e) => (
+                <>
+                    {e.label}
+                    {e.detail && <span className="cell__sub">{e.detail}</span>}
+                </>
+            ),
+        },    ];
 
     return (
         <main className="page">
