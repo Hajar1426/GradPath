@@ -9,5 +9,5 @@ export const users = [
     { id: 'u-chair-1', name: 'Dr. Malak Baslyman', email: 'chairperson@kfupm.edu.sa', password: 'demo1234', role: ROLES.CHAIRPERSON, status: ACCOUNT_STATUS.ACTIVE },
     { id: 'u-chair-2', name: 'Dr. Mohammad Waleed Shinwari', email: 'chairperson1@kfupm.edu.sa', password: 'demo1234', role: ROLES.CHAIRPERSON, status: ACCOUNT_STATUS.ACTIVE },
     { id: 'u-chair-3', name: 'Dr. Yasser Almoghathawi', email: 'chairperson2@kfupm.edu.sa', password: 'demo1234', role: ROLES.CHAIRPERSON, status: ACCOUNT_STATUS.ACTIVE },
-    { id: 'u-chair-3', name: 'Dr. Monther Alfuraidan', email: 'chairperson3@kfupm.edu.sa', password: 'demo1234', role: ROLES.CHAIRPERSON, status: ACCOUNT_STATUS.ACTIVE },
+    { id: 'u-chair-4', name: 'Dr. Monther Alfuraidan', email: 'chairperson3@kfupm.edu.sa', password: 'demo1234', role: ROLES.CHAIRPERSON, status: ACCOUNT_STATUS.ACTIVE },
 ];
