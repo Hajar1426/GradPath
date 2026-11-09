@@ -7,6 +7,7 @@ import { generateActivationCode } from '../../utils/activation';
 import BackLink from '../../components/common/BackLink';
 import Input from '../../components/common/Input';
 import Button from '../../components/common/Button';
+import { getEmailError } from '../../utils/emailRules';
 
 const MESSAGES = {
     invalid: 'Email or password is incorrect.',
@@ -32,8 +33,13 @@ export default function SignInPage() {
         event.preventDefault();
         setPending(false);
         setResendCode(null);
-        if (!email.trim() || !password) {
-            setError('Enter your email and password.');
+        const emailError = getEmailError(email);
+        if (emailError) {
+            setError(emailError);
+            return;
+        }
+        if (!password) {
+            setError('Enter your password.');
             return;
         }
         const result = signIn(email, password);

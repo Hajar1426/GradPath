@@ -15,9 +15,9 @@ const ROLE_OPTIONS = [
     { value: ROLES.STUDENT, label: 'Student' },
     { value: ROLES.ADVISOR, label: 'Advisor' },
     { value: ROLES.COORDINATOR, label: 'Coordinator' },
-    { value: ROLES.ADMIN, label: 'Admin' },
     { value: ROLES.DEAN, label: 'Dean' },
     { value: ROLES.CHAIRPERSON, label: 'Chairperson' },
+    { value: ROLES.ADMIN, label: 'Admin' },
 ];
 
 const EMPTY_FORM = { name: '', email: '', role: ROLES.STUDENT, password: '' };
@@ -30,18 +30,27 @@ export default function AddUserPage() {
     const [errors, setErrors] = useState({});
     const [created, setCreated] = useState(null);
 
+    const isStudent = form.role === ROLES.STUDENT;
+
     function setField(field, value) {
         setForm((prev) => ({ ...prev, [field]: value }));
+    }
+
+    function findRosterRow(email) {
+        return (data.studentRoster ?? []).find((r) => r.email.toLowerCase() === email.toLowerCase());
     }
 
     function validate() {
         const next = {};
         const email = form.email.trim();
-        if (!form.name.trim()) next.name = 'Enter the full name.';
+        if (!isStudent && !form.name.trim()) next.name = 'Enter the full name.';
         const emailError = getEmailError(email);
-        if (emailError) next.email = emailError;
-        else if (data.users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
+        if (emailError) {
+            next.email = emailError;
+        } else if (data.users.some((u) => u.email.toLowerCase() === email.toLowerCase())) {
             next.email = 'An account with this email already exists.';
+        } else if (isStudent && !findRosterRow(email)) {
+            next.email = 'This email is not on the approved student list. The coordinator must upload it first.';
         }
         if (form.password.length < 8) next.password = 'Use at least 8 characters.';
         return next;
@@ -56,11 +65,17 @@ export default function AddUserPage() {
         const id = `u-${Date.now()}`;
         const activationCode = generateActivationCode();
         const email = form.email.trim().toLowerCase();
-        const name = form.name.trim();
+        const row = isStudent ? findRosterRow(email) : null;
+        const name = row ? row.name : form.name.trim();
         updateCollection('users', (list) => [
             ...list,
             { id, name, email, password: form.password, role: form.role, status: ACCOUNT_STATUS.PENDING, activationCode },
         ]);
+        if (row) {
+            updateCollection('studentRoster', (list) =>
+                list.map((r) => (r.id === row.id ? { ...r, hasAccount: true } : r)),
+            );
+        }
         addAuditEvent({ userId: id, actorId: currentUser.id, action: 'account_created' });
         showToast(`Account created for ${name}.`);
         setCreated({ name, email, activationCode });
@@ -102,13 +117,23 @@ export default function AddUserPage() {
             </p>
             <PageHeader title="Add user" subtitle="Create an account. The user activates it from an emailed link." />
             <form onSubmit={handleSubmit} noValidate style={{ marginTop: 24, maxWidth: 480 }}>
-                <Input
-                    id="name"
-                    label="Full name"
-                    value={form.name}
-                    onChange={(e) => setField('name', e.target.value)}
-                    error={errors.name}
+                <Select
+                    id="role"
+                    label="Role"
+                    options={ROLE_OPTIONS}
+                    value={form.role}
+                    onChange={(e) => setField('role', e.target.value)}
+                    hint={isStudent ? 'Students must be on the approved list. Their name, degree and study load come from it.' : undefined}
                 />
+                {!isStudent && (
+                    <Input
+                        id="name"
+                        label="Full name"
+                        value={form.name}
+                        onChange={(e) => setField('name', e.target.value)}
+                        error={errors.name}
+                    />
+                )}
                 <Input
                     id="email"
                     label="University email"
@@ -116,13 +141,6 @@ export default function AddUserPage() {
                     value={form.email}
                     onChange={(e) => setField('email', e.target.value)}
                     error={errors.email}
-                />
-                <Select
-                    id="role"
-                    label="Role"
-                    options={ROLE_OPTIONS}
-                    value={form.role}
-                    onChange={(e) => setField('role', e.target.value)}
                 />
                 <Input
                     id="password"
