@@ -108,9 +108,8 @@ New data collections are added in `src/data/index.js`. Read and write them with 
 
 | Member | Area                                                                                                      |
 |--------|-----------------------------------------------------------------------------------------------------------|
-| Hajar  | Foundation, shared interface, common pages, sign-in, settings, notifications and the administrator portal |
-| Leen   | Advisor profiles, advisor directory, advisor portal, annual reports and warning alerts                    |
-| Zainab | Course offerings, degree plan builder, milestones and advisor plan review                                 |
-| Maha   | Coordinator portal, capacity, Excel import, statistics, authorization review, announcements and resources |
+| Hajar Alboali | Foundation, shared interface, common pages, sign-in, settings, notifications and the administrator portal |
+| Leen AlHelal | Advisor profiles, advisor directory, advisor portal, annual reports and warning alerts                    |
+| Zainab Aljarrash | Course offerings, degree plan builder, milestones and advisor plan review                                 |
+| Maha AlSubaie | Coordinator portal, capacity, Excel import, statistics, authorization review, announcements and resources |
 
-Team: Hajar Alboali, Zainab Aljarrash, Maha AlSubaie and Leen AlHelal.
