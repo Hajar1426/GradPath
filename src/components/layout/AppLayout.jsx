@@ -4,8 +4,10 @@ import Sidebar from './Sidebar';
 import ReadOnlyBanner from '../common/ReadOnlyBanner';
 import { useData } from '../../hooks/useData';
 import { useReadOnly } from '../../hooks/useReadOnly';
+import { useSessionTimeout } from '../../hooks/useSessionTimeout';
 
 export default function AppLayout() {
+    useSessionTimeout();
     const readOnly = useReadOnly();
     const { setReadOnly } = useData();
 
