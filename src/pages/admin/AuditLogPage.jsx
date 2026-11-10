@@ -14,6 +14,7 @@ const ACTION_LABELS = {
     activation_resent: 'Activation email resent',
     password_reset: 'Password reset',
     role_changed: 'Role changed',
+    access_reset_sent: 'Password reset link sent',
 };
 
 function labelFor(action) {
