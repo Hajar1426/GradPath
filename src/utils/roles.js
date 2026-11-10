@@ -60,7 +60,6 @@ export const NAV_BY_ROLE = {
     [ROLES.ADMIN]: [
         { to: '/admin', label: 'nav.dashboard' },
         { to: '/admin/users', label: 'nav.users' },
-        { to: '/admin/roles', label: 'nav.roles' },
         { to: '/admin/audit', label: 'nav.audit' },
         { to: '/admin/security', label: 'nav.security' },
         { to: '/notifications', label: 'nav.notifications' },

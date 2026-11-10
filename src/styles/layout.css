@@ -153,3 +153,6 @@ a.sidebar__user:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 .role-card .role-card__count { margin-top: 4px; font-weight: 600; color: #3f6b57; }
 .section-title { margin: 36px 0 0; font-size: 20px; }
 
+.role-details { margin-top: 28px; }
+.role-details summary { cursor: pointer; font-size: 17px; font-weight: 600; }
+.role-details .role-cards { margin-top: 16px; }
