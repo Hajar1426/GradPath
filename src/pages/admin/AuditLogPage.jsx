@@ -15,6 +15,7 @@ const ACTION_LABELS = {
     password_reset: 'Password reset',
     role_changed: 'Role changed',
     access_reset_sent: 'Password reset link sent',
+    security_settings_changed: 'Security settings changed',
 };
 
 function labelFor(action) {
@@ -37,7 +38,7 @@ export default function AuditLogPage() {
             action: event.action,
             label: labelFor(event.action),
             detail: event.detail ?? '',
-            userName: user?.name ?? 'Unknown user',
+            userName: event.userId ? (user?.name ?? 'Unknown user') : 'Whole system',
             userEmail: user?.email ?? '',
             actorName: event.actorId ? (actor?.name ?? 'Unknown user') : 'The user',
         };
