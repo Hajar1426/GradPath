@@ -6,23 +6,8 @@ import DataTable from '../../components/common/DataTable';
 import { useData } from '../../hooks/useData';
 import { formatDateTime } from '../../utils/formatDate';
 import { matchesSearch } from '../../utils/matchesSearch';
+import { labelFor } from '../../utils/auditLabels';
 
-const ACTION_LABELS = {
-    account_created: 'Account created',
-    account_disabled: 'Account disabled',
-    account_enabled: 'Account enabled',
-    activation_resent: 'Activation email resent',
-    password_reset: 'Password reset',
-    role_changed: 'Role changed',
-    access_reset_sent: 'Password reset link sent',
-    security_settings_changed: 'Security settings changed',
-};
-
-function labelFor(action) {
-    if (ACTION_LABELS[action]) return ACTION_LABELS[action];
-    const text = String(action).replace(/_/g, ' ');
-    return text.charAt(0).toUpperCase() + text.slice(1);
-}
 
 export default function AuditLogPage() {
     const { data } = useData();

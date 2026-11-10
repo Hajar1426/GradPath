@@ -18,6 +18,7 @@ import UserAccountsPage from './pages/admin/UserAccountsPage';
 import AddUserPage from './pages/admin/AddUserPage';
 import AuditLogPage from './pages/admin/AuditLogPage';
 import SecuritySettingsPage from './pages/admin/SecuritySettingsPage';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
@@ -27,6 +28,7 @@ const PAGES = {
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,
+    '/admin': AdminDashboardPage,
 };
 
 // Pages that are not in the sidebar (details pages), per role
