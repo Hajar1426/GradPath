@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import PageHeader from '../../components/layout/PageHeader';
 import SearchBar from '../../components/common/SearchBar';
 import Select from '../../components/common/Select';
@@ -14,6 +13,7 @@ import { ROLES, ACCOUNT_STATUS } from '../../data/statusValues';
 import { generateActivationCode } from '../../utils/activation';
 import { matchesSearch } from '../../utils/matchesSearch';
 import Modal from '../../components/common/Modal';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const ROLE_INFO = [
     {
@@ -68,7 +68,11 @@ export default function UserAccountsPage() {
     const { showToast } = useToast();
     const [query, setQuery] = useState('');
     const [role, setRole] = useState('all');
-    const [status, setStatus] = useState('all');
+    const [searchParams] = useSearchParams();
+    const startStatus = searchParams.get('status');
+    const [status, setStatus] = useState(
+        STATUS_OPTIONS.some((option) => option.value === startStatus) ? startStatus : 'all',
+    );
     const [toDisable, setToDisable] = useState(null);
     const [resent, setResent] = useState(null);
     const [resetLink, setResetLink] = useState(null);
