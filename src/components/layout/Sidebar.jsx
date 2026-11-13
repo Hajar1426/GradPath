@@ -3,6 +3,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useNotifications } from '../../hooks/useNotifications';
 import { NAV_BY_ROLE, HOME_BY_ROLE, labelOf } from '../../utils/roles';
 import { useAnnouncementCount } from '../../hooks/useAnnouncementCount';
+import NavIcon from './NavIcon';
 
 function initials(name) {
     return name
@@ -62,7 +63,10 @@ export default function Sidebar() {
                     end={link.to === HOME_BY_ROLE[currentUser.role]}
                     className={({ isActive }) => 'sidebar__link' + (isActive ? ' active' : '')}
                 >
-                    {labelOf(link.label)}
+                    <span className="sidebar__label">
+    <NavIcon to={link.to} isHome={link.to === HOME_BY_ROLE[currentUser.role]} />
+                        {labelOf(link.label)}
+</span>
                     {counts[link.to] > 0 && (
                         <span className="sidebar__count" aria-label={`${counts[link.to]} new`}>
               {counts[link.to]}
@@ -72,7 +76,7 @@ export default function Sidebar() {
             ))}
 
             <button type="button" className="sidebar__signout" onClick={handleSignOut}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true" >
                     <path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9" />
                 </svg>
                 Sign out

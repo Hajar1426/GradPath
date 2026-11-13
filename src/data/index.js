@@ -9,6 +9,7 @@ export function getInitialData() {
         auditEvents: [],
         announcements: [
             { id: 'a-test', title: 'Term 261 offerings published', status: 'published', publishedAt: '2026-11-01T10:00:00' },
+            { id: 'b-test', title: 'Test', status: 'published', publishedAt: '2026-11-10T10:00:00', audience: ['student', 'advisor'] },
         ],
     };
 }
