@@ -100,7 +100,10 @@
         width: 100%;
         flex-direction: row;
         flex-wrap: wrap;
-        padding: 12px; }
+        padding: 12px;
+        position: static;
+        height: auto;
+        overflow-y: visible; }
     .sidebar__brand {
         width: 100%;
         margin: 0 0 8px; }
@@ -120,7 +123,7 @@
 .sidebar__name { display: block; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
 .sidebar__role { display: block; font-size: 12px; color: rgba(255, 255, 255, 0.7); }
 .sidebar__count { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; padding: 0 7px; border-radius: 999px; background: #fff; color: var(--color-sidebar); font-size: 12px; font-weight: 600; }
-.sidebar__signout { display: flex; align-items: center; gap: 12px; height: 44px; margin-top: auto; padding: 0 14px; border: 0; border-radius: 10px; background: transparent; color: #fff; font-size: 15px; text-align: left; cursor: pointer; }
+.sidebar__signout { display: flex; align-items: center; gap: 12px; height: 44px; margin-top: 8px; padding: 0 14px; border: 0; border-radius: 10px; background: transparent; color: #fff; font-size: 15px; text-align: left; cursor: pointer; }
 .sidebar__signout:hover { background: rgba(255, 255, 255, 0.08); }
 .app-main > .page { margin-top: 32px; }
 
@@ -167,3 +170,6 @@ a.sidebar__user:focus-visible { outline: 2px solid #fff; outline-offset: -2px; }
 .activity-list { list-style: none; margin: 12px 0 0; padding: 0; }
 .activity-list li { padding: 12px 0; border-bottom: 1px solid #dcdcd6; }
 .section-title { margin: 36px 0 0; font-size: 20px; }
+
+.sidebar__label { display: inline-flex; align-items: center; gap: 12px; }
+.sidebar__icon { flex: none; }

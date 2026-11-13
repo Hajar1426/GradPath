@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useData } from './useData';
 import { useAuth } from './useAuth';
+import { ROLES } from '../data/statusValues';
+import { VIEW_ONLY_ROLES } from '../utils/roles';
 
 const EVENT = 'gradpath:announcements-seen';
 
@@ -20,6 +22,8 @@ export function useAnnouncementCount() {
     const { data } = useData();
     const { currentUser } = useAuth();
     const userId = currentUser?.id;
+    const role = currentUser?.role;
+    const audienceRole = VIEW_ONLY_ROLES.includes(role) ? ROLES.COORDINATOR : role;
     const [seenAt, setSeenAt] = useState(() => readSeenAt(userId));
 
     useEffect(() => {
@@ -34,9 +38,10 @@ export function useAnnouncementCount() {
         return list.filter((a) => {
             const published = String(a.status).toLowerCase() === 'published';
             const when = new Date(a.publishedAt ?? a.at ?? 0).getTime();
-            return published && when > seenAt;
+            const forMe = !a.audience || a.audience.includes(audienceRole);
+            return published && forMe && when > seenAt;
         }).length;
-    }, [data.announcements, seenAt]);
+    }, [data.announcements, seenAt ,audienceRole]);
 
     const markSeen = useCallback(() => {
         try {
