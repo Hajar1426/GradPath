@@ -112,4 +112,4 @@ New data collections are added in `src/data/index.js`. Read and write them with 
 | Leen AlHelal     | Advisor profiles, advisor directory, advisor portal, annual reports and warning alerts                    |
 | Zainab Aljarrash | Course offerings, degree plan builder, milestones and advisor plan review                                 |
 | Maha AlSubaie    | Coordinator portal, capacity, Excel import, statistics, authorization review, announcements and resources |
-
+| Member | Area                                                                                                      |
