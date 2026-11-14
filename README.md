@@ -70,23 +70,43 @@ This is a prototype, so some things are simulated on purpose:
 - **Audit log:** account changes (created, activated, disabled, role changed, password reset and more) are recorded for the admin.
 
 ## How the code is organised
-
-```
 src/
-  components/
-    common/      Shared controls (Button, Input, Select, DataTable, Modal, Toast, ...)
-    layout/      Sidebar, page header, protected route, app layout
-  context/       Data, authentication and toast providers
-  data/          Demo data and the agreed status values (statusValues.js)
-  hooks/         useData, useAuth, useToast, useNotifications, useStudentInfo, useReadOnly, ...
-  pages/
-    common/      Landing, sign in, sign up, notifications, settings, ...
-    admin/       Admin pages
-    student/ advisor/ coordinator/   One folder per member's pages
-  styles/        CSS files, imported from index.css
-  utils/         Small helpers (roles and navigation, study rules, email rules, search, dates)
+  main.jsx       Starts the app
+  App.jsx        Wraps the app in its providers and routes
   routes.jsx     All routes, plus the page registry
-```
+  index.css      Imports every CSS file in styles/
+  assets/        Images and logos
+  components/
+    common/      Shared controls (Button, Input, Select, Textarea, DataTable, Pagination,
+                 SearchBar, Tabs, Modal, ConfirmationDialog, Toast, Alert, StatusBadge,
+                 EmptyState, LoadingState, ErrorState, BackLink) and the view-only helpers
+                 EditOnly and ReadOnlyBanner
+    layout/      Sidebar with its icons (NavIcon), page header, protected route, app layout
+  context/       Data, authentication and toast providers
+  data/          Demo data (users, roster, advisors, courses, offerings, degree plans,
+                 announcements, reports, ...) and the agreed status values (statusValues.js)
+  hooks/         useData, useAuth, useToast, useNotifications, useAnnouncementCount,
+                 useStudentInfo, useReadOnly, useSecuritySettings, useSessionTimeout
+  pages/
+    common/      Landing, sign in, sign up, activation, forgot and reset password,
+                 notifications, announcements, settings, 403 and 404 pages
+    admin/       Dashboard, user accounts, add user, audit log, security settings
+    student/     Advisor directory and profiles, course resources, degree plan builder
+    advisor/     Home, students, alerts, annual report review, profile editing
+    coordinator/ Dashboard, statistics, student list and record import, advisor capacity,
+                 courses and schedule, requests, resources, announcements
+  styles/        CSS files, imported from index.css (variables, controls, layout,
+                 landing, notifications, settings, planning, advisor, coordinator)
+  utils/         Small helpers, grouped by use:
+                 roles and navigation (roles.js)
+                 account rules (emailRules, activation, studyRules, auditLabels)
+                 planning rules (validatePlan, checkPrerequisites, checkConflicts,
+                 validateProgramRequirements, schedule)
+                 advisors and coordinator (computeAvailability, advisorHelpers,
+                 coordinatorHelpers, coordinatorReports, offeringWarnings)
+                 import and files (importRules, parseXlsx, downloadCsv, downloadXlsx,
+                 resourceFiles)
+                 general (storage, formatDate, matchesSearch)
 
 ### Adding a page
 
