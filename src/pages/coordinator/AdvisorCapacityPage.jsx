@@ -17,7 +17,6 @@ import { useToast } from '../../hooks/useToast';
 import { useReadOnly } from '../../hooks/useReadOnly';
 import { AVAILABILITY } from '../../data/statusValues';
 import {
-    ADVISEE_SLOTS,
     AVAILABILITY_LABEL,
     capacityOf,
     computeAutoAvailability,
