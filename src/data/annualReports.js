@@ -26,8 +26,9 @@ export const annualReports = [
         studentId: 'u-student-2',
         advisorId: 'adv-1',
         academicYear: '2025-2026',
-        status: REPORT_STATUS.SUBMITTED,
-        submittedAt: '2026-11-08T16:05:00',
+        // Still a draft: Faris has not submitted yet, so his advisor cannot see it.
+        status: REPORT_STATUS.DRAFT,
+        submittedAt: null,
         answers: {
             progress: 'Completed my first year of coursework and picked a thesis topic on network intrusion detection.',
             coursesCompleted: 'ICS 512, ICS 535',

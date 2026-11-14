@@ -68,8 +68,17 @@ export default function StudentDashboardPage() {
     }
     if (report?.status === REPORT_STATUS.EVALUATED && report.evaluation?.rating !== REPORT_RATING.SATISFACTORY) {
         todo.push({ id: 'report', tone: 'danger', text: `Your annual report needs follow-up: ${report.evaluation.actionPlan || report.evaluation.comments}`, to: '/student/reports', action: 'View report' });
-    } else if (!report && reportDue) {
-        todo.push({ id: 'report', tone: 'info', text: `Your annual progress report is due on ${formatDate(reportDue.date)}.`, to: '/student/reports', action: 'Write report' });
+    } else if ((!report || report.status === REPORT_STATUS.DRAFT) && reportDue) {
+        const started = report?.status === REPORT_STATUS.DRAFT;
+        todo.push({
+            id: 'report',
+            tone: 'info',
+            text: started
+                ? `Your annual progress report is still a draft. Submit it by ${formatDate(reportDue.date)}.`
+                : `Your annual progress report is due on ${formatDate(reportDue.date)}.`,
+            to: '/student/reports',
+            action: started ? 'Finish report' : 'Write report',
+        });
     }
 
     const tiles = [
