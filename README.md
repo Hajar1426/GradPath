@@ -70,23 +70,17 @@ This is a prototype, so some things are simulated on purpose:
 - **Audit log:** account changes (created, activated, disabled, role changed, password reset and more) are recorded for the admin.
 
 ## How the code is organised
-
-```
 src/
-├── assets/                                   Images
-│   ├── hero.png
-│   ├── react.svg
-│   └── vite.svg
+├── assets/                          Images
 ├── components/
-│   ├── advising/                             Advisor profile pieces
-│   │   └── TagInput.jsx
-│   ├── common/                               Shared controls
+│   ├── advising/                    Advisor profile pieces (TagInput)
+│   ├── common/                      Shared controls
 │   │   ├── Alert.jsx
 │   │   ├── BackLink.jsx
 │   │   ├── Button.jsx
 │   │   ├── ConfirmationDialog.jsx
 │   │   ├── DataTable.jsx
-│   │   ├── EditOnly.jsx                      Hides edit actions for view-only roles
+│   │   ├── EditOnly.jsx             Hides edit actions for view-only roles
 │   │   ├── EmptyState.jsx
 │   │   ├── ErrorState.jsx
 │   │   ├── Input.jsx
@@ -100,42 +94,26 @@ src/
 │   │   ├── Tabs.jsx
 │   │   ├── Textarea.jsx
 │   │   └── Toast.jsx
-│   ├── coordinator/                          Coordinator-only pieces (dialogs, charts, import tables, schedule)
-│   │   ├── AnnouncementPreview.jsx
-│   │   ├── AudienceSelector.jsx
-│   │   ├── AuthorizationDecisionDialog.jsx
-│   │   ├── AvailabilityBadge.jsx
-│   │   ├── AvailabilityOverrideDialog.jsx
-│   │   ├── CategoryChips.jsx
-│   │   ├── Charts.jsx
-│   │   ├── EditAdvisorCapacityDialog.jsx
-│   │   ├── FileDropzone.jsx
-│   │   ├── Icons.jsx
-│   │   ├── ImportHistoryTable.jsx
-│   │   ├── ImportPreviewTable.jsx
-│   │   ├── ImportSummary.jsx
-│   │   ├── OfferingWarnings.jsx
-│   │   ├── ResourceActions.jsx
-│   │   ├── StatCard.jsx
-│   │   └── WeeklySchedule.jsx
-│   ├── layout/                               App frame
+│   ├── coordinator/                 Coordinator-only pieces (dialogs, charts, import tables,
+│   │                                availability badge, weekly schedule, stat cards, ...)
+│   ├── layout/                      App frame
 │   │   ├── AppLayout.jsx
 │   │   ├── NavIcon.jsx
 │   │   ├── PageHeader.jsx
 │   │   ├── ProtectedRoute.jsx
 │   │   └── Sidebar.jsx
-│   └── planning/                             Degree plan builder pieces
+│   └── planning/                    Degree plan builder pieces
 │       ├── CoursePicker.jsx
 │       ├── PlanBoard.jsx
 │       ├── PlanChecklist.jsx
 │       ├── PlannedCourseCard.jsx
 │       └── TermColumn.jsx
-├── context/                                  Providers
+├── context/                         Providers
 │   ├── AuthContext.jsx
 │   ├── contexts.js
 │   ├── DataContext.jsx
 │   └── ToastContext.jsx
-├── data/                                     Demo data and the agreed status values
+├── data/                            Demo data and the agreed status values
 │   ├── academicCalendar.js
 │   ├── advisors.js
 │   ├── announcements.js
@@ -151,11 +129,11 @@ src/
 │   ├── offerings.js
 │   ├── programRules.js
 │   ├── resources.js
-│   ├── roster.js                             Approved student list
-│   ├── statusValues.js                       Agreed status words
+│   ├── roster.js                    Approved student list
+│   ├── statusValues.js
 │   ├── students.js
 │   └── users.js
-├── hooks/                                    Custom hooks
+├── hooks/
 │   ├── useAnnouncementCount.js
 │   ├── useAuth.js
 │   ├── useData.js
@@ -166,13 +144,13 @@ src/
 │   ├── useStudentInfo.js
 │   └── useToast.js
 ├── pages/
-│   ├── admin/                                System Administrator pages
+│   ├── admin/                       System Administrator
 │   │   ├── AddUserPage.jsx
 │   │   ├── AdminDashboardPage.jsx
 │   │   ├── AuditLogPage.jsx
 │   │   ├── SecuritySettingsPage.jsx
 │   │   └── UserAccountsPage.jsx
-│   ├── advisor/                              Advisor pages
+│   ├── advisor/
 │   │   ├── AdvisorAlertsPage.jsx
 │   │   ├── AdvisorEditProfilePage.jsx
 │   │   ├── AdvisorHomePage.jsx
@@ -180,7 +158,7 @@ src/
 │   │   ├── AdvisorReportsPage.jsx
 │   │   ├── AdvisorStudentDetailPage.jsx
 │   │   └── MyStudentsPage.jsx
-│   ├── common/                               Pages for everyone
+│   ├── common/                      Pages for everyone
 │   │   ├── ActivatePage.jsx
 │   │   ├── AnnouncementsPage.jsx
 │   │   ├── ForbiddenPage.jsx
@@ -193,7 +171,7 @@ src/
 │   │   ├── SettingsPage.jsx
 │   │   ├── SignInPage.jsx
 │   │   └── SignUpPage.jsx
-│   ├── coordinator/                          Coordinator pages
+│   ├── coordinator/
 │   │   ├── AdvisorCapacityPage.jsx
 │   │   ├── announcementActions.js
 │   │   ├── AnnouncementEditorPage.jsx
@@ -208,12 +186,12 @@ src/
 │   │   ├── ResourcesManagePage.jsx
 │   │   ├── StatisticsPage.jsx
 │   │   └── StudentListPage.jsx
-│   └── student/                              Student pages
+│   └── student/
 │       ├── AdvisorDirectoryPage.jsx
 │       ├── AdvisorProfilePage.jsx
 │       ├── CourseResourcesPage.jsx
 │       └── DegreePlanBuilderPage.jsx
-├── styles/                                   CSS, imported from index.css
+├── styles/                          CSS, imported from index.css
 │   ├── advisor.css
 │   ├── controls.css
 │   ├── coordinator.css
@@ -223,7 +201,7 @@ src/
 │   ├── planning.css
 │   ├── settings.css
 │   └── variables.css
-├── utils/                                    Small helpers
+├── utils/                           Small helpers
 │   ├── activation.js
 │   ├── advisorHelpers.js
 │   ├── auditLabels.js
@@ -241,17 +219,16 @@ src/
 │   ├── offeringWarnings.js
 │   ├── parseXlsx.js
 │   ├── resourceFiles.js
-│   ├── roles.js                              Roles and sidebar links
+│   ├── roles.js                     Roles and sidebar links
 │   ├── schedule.js
 │   ├── storage.js
 │   ├── studyRules.js
 │   ├── validatePlan.js
 │   └── validateProgramRequirements.js
-├── App.jsx                                   Providers and routes
-├── index.css                                 Imports every CSS file
-├── main.jsx                                  Starts the app
-└── routes.jsx                                All routes and the page registry
-```
+├── App.jsx                          Providers and routes
+├── index.css                        Imports every CSS file
+├── main.jsx                         Starts the app
+└── routes.jsx                       All routes and the page registry
 
 ### Adding a page
 
