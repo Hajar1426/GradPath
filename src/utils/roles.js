@@ -35,6 +35,7 @@ const COORDINATOR_NAV = [
     { to: '/coordinator/announcements', label: 'nav.announcements' },
     { to: '/notifications', label: 'nav.notifications' },
     { to: '/settings', label: 'nav.settings' },
+    { to: '/advisor/plans', label: 'nav.degree plans' },
 ];
 
 export const NAV_BY_ROLE = {
@@ -49,16 +50,17 @@ export const NAV_BY_ROLE = {
         { to: '/notifications', label: 'nav.notifications' },
         { to: '/settings', label: 'nav.settings' },
     ],
-    [ROLES.ADVISOR]: [
-        { to: '/advisor', label: 'nav.dashboard' },
-        { to: '/advisor/students', label: 'nav.students' },
-        { to: '/advisor/reports', label: 'nav.reports' },
-        { to: '/advisor/alerts', label: 'nav.alerts' },
-        { to: '/advisor/profile', label: 'nav.profile', hidden: true },
-        { to: '/announcements', label: 'nav.announcements' },
-        { to: '/notifications', label: 'nav.notifications' },
-        { to: '/settings', label: 'nav.settings' },
-    ],
+[ROLES.ADVISOR]: [
+    { to: '/advisor', label: 'nav.dashboard' },
+    { to: '/advisor/students', label: 'nav.students' },
+    { to: '/advisor/plans', label: 'nav.degree plans' },
+    { to: '/advisor/reports', label: 'nav.reports' },
+    { to: '/advisor/alerts', label: 'nav.alerts' },
+    { to: '/advisor/profile', label: 'nav.profile', hidden: true },
+    { to: '/announcements', label: 'nav.announcements' },
+    { to: '/notifications', label: 'nav.notifications' },
+    { to: '/settings', label: 'nav.settings' },
+],
     [ROLES.COORDINATOR]: COORDINATOR_NAV,
     [ROLES.DEAN]: COORDINATOR_NAV,
     [ROLES.CHAIRPERSON]: COORDINATOR_NAV,

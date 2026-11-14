@@ -733,3 +733,61 @@
         flex-direction: column;
     }
 }
+/* =========================================================
+   ADVISOR PLAN REVIEW
+   ========================================================= */
+
+.plan-review__decision {
+    display: grid;
+    gap: 1rem;
+}
+
+.plan-review__decision h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.plan-review__decision p {
+    margin: 0.2rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+}
+
+.plan-review__comment {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.plan-review__comment span {
+    color: var(--color-text);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.plan-review__comment textarea {
+    width: 100%;
+    resize: vertical;
+
+    padding: 0.7rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    font: inherit;
+    font-size: 0.72rem;
+}
+
+.plan-review__comment textarea:focus {
+    border-color: var(--color-primary);
+}
+
+.plan-review__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
