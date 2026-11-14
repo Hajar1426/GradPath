@@ -5,6 +5,7 @@ export default function PlanBoard({
     courses = [],
     onRemoveCourse,
     onMoveCourse,
+    onAddCourse,
 }) {
     return (
         <section className="plan-board">
@@ -32,6 +33,7 @@ export default function PlanBoard({
                             allTerms={terms}
                             onRemoveCourse={onRemoveCourse}
                             onMoveCourse={onMoveCourse}
+                            onAddCourse={onAddCourse}
                         />
                     ))}
                 </div>

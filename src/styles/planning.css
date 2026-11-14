@@ -559,6 +559,118 @@
     color: var(--color-danger);
 }
 
+/* =========================================================
+   COURSE PICKER
+   ========================================================= */
+
+.course-picker {
+    display: grid;
+    gap: 1rem;
+}
+
+.course-picker__intro {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+}
+
+.course-picker__filters {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 150px;
+    gap: 0.75rem;
+}
+
+.course-picker__list {
+    display: grid;
+    gap: 0.5rem;
+
+    max-height: 430px;
+    overflow-y: auto;
+}
+
+.course-picker__course {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 0.7rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+}
+
+.course-picker__course-info {
+    min-width: 0;
+}
+
+.course-picker__course-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.course-picker__course-heading strong {
+    color: var(--color-text);
+    font-size: 0.78rem;
+}
+
+.course-picker__course-heading span {
+    padding: 0.1rem 0.35rem;
+
+    border-radius: 999px;
+    background: #edf6f1;
+
+    color: var(--color-primary);
+    font-size: 0.56rem;
+    font-weight: 600;
+}
+
+.course-picker__course-info > p {
+    margin: 0.15rem 0;
+    color: var(--color-muted);
+    font-size: 0.68rem;
+}
+
+.course-picker__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    color: var(--color-muted);
+    font-size: 0.6rem;
+}
+
+.course-picker__course-info .course-picker__warning {
+    margin-top: 0.35rem;
+    color: var(--color-warning);
+    font-size: 0.61rem;
+}
+
+.course-picker__course-info .course-picker__prerequisite {
+    margin-top: 0.25rem;
+    font-size: 0.6rem;
+}
+
+.course-picker__empty {
+    margin: 1rem 0;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .course-picker__filters {
+        grid-template-columns: 1fr;
+    }
+
+    .course-picker__course {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
 
 /* =========================================================
    RESPONSIVE

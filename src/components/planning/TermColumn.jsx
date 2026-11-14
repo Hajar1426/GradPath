@@ -6,6 +6,7 @@ export default function TermColumn({
     allTerms = [],
     onRemoveCourse,
     onMoveCourse,
+    onAddCourse,
 }) {
     const isHistorical = term.type === 'historical';
     const termCourses = term.courses ?? [];
@@ -53,6 +54,7 @@ export default function TermColumn({
                 <button
                     type="button"
                     className="plan-term__add"
+                    onClick={() => onAddCourse?.(term)}
                 >
                     <span aria-hidden="true">+</span>
                     Add course
