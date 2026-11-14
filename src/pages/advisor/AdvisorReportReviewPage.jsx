@@ -12,18 +12,9 @@ import { useData } from '../../hooks/useData';
 import { useToast } from '../../hooks/useToast';
 import { ALERT_STATUS, REPORT_RATING, REPORT_STATUS } from '../../data/statusValues';
 import { formatDate, formatDateTime } from '../../utils/formatDate';
-import { findMyAdvisor } from '../../utils/advisorHelpers';
+import { REPORT_QUESTIONS, findMyAdvisor } from '../../utils/advisorHelpers';
 import { newId } from '../../utils/coordinatorHelpers';
 import { todayIso } from '../../utils/dateHelpers';
-
-// The questions the student answered, in the order they are shown.
-const QUESTIONS = [
-    { key: 'progress', label: 'Research progress this year' },
-    { key: 'coursesCompleted', label: 'Courses completed' },
-    { key: 'publications', label: 'Publications and presentations' },
-    { key: 'challenges', label: 'Challenges' },
-    { key: 'nextSteps', label: 'Plans for next year' },
-];
 
 const RATINGS = [
     { value: REPORT_RATING.SATISFACTORY, label: 'Satisfactory', help: 'Progress is on track.' },
@@ -151,7 +142,7 @@ export default function AdvisorReportReviewPage() {
                     </span>
                 </p>
                 <dl className="report-answers">
-                    {QUESTIONS.map((q) => (
+                    {REPORT_QUESTIONS.map((q) => (
                         <div key={q.key} className="report-answers__item">
                             <dt>{q.label}</dt>
                             <dd>{report.answers?.[q.key] || '—'}</dd>
