@@ -61,6 +61,7 @@ export default function AdvisorStudentDetailPage() {
                             <dt>Study load</dt><dd>{STUDY_LOAD_LABEL[getStudyLoad(student)]}</dd>
                             <dt>Started</dt><dd>{student.startTerm ? `Term ${student.startTerm}` : '—'}</dd>
                             <dt>Email</dt><dd><a href={`mailto:${student.email}`}>{student.email}</a></dd>
+                            <dt>Mobile</dt><dd>{student.phone || '—'}</dd>
                         </dl>
                         <a className="btn advisor-card__email" href={emailLink}>Email student</a>
                     </div>
@@ -68,6 +69,21 @@ export default function AdvisorStudentDetailPage() {
 
                 {/* Right: plan and alerts */}
                 <div className="advisor-profile__main">
+                    {/* Written by the student on their profile page */}
+                    <section className="panel" aria-labelledby="research-title">
+                        <h2 className="panel__title" id="research-title">Research</h2>
+                        <p className="advisor-profile__text">
+                            <strong>Topic:</strong> {student.thesisTopic || 'Not chosen yet'}
+                        </p>
+                        {(student.researchInterests ?? []).length > 0 && (
+                            <ul className="advisor-tags advisor-detail__tags">
+                                {student.researchInterests.map((area) => (
+                                    <li key={area} className="advisor-tag">{area}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </section>
+
                     <section className="panel" aria-labelledby="plan-title">
                         <h2 className="panel__title" id="plan-title">Degree plan</h2>
                         {plan ? (
@@ -84,7 +100,7 @@ export default function AdvisorStudentDetailPage() {
                                         {`A ${STUDY_LOAD_LABEL[getStudyLoad(student)].toLowerCase()} student should plan at least ${minCourses} course${minCourses > 1 ? 's' : ''} per semester. This plan has ${thisTerm.length} for Term ${CURRENT_TERM}.`}
                                     </Alert>
                                 )}
-                                <Link className="btn btn--ghost advisor-detail__action" to={planReviewPath(student.userId)}>View plan</Link>
+                                <Link className="btn btn--ghost advisor-detail__action" to={planReviewPath(plan)}>View plan</Link>
                             </>
                         ) : (
                             <EmptyState title="No degree plan yet" message="The student has not started a plan. You can email them a reminder." />

@@ -5,10 +5,9 @@ import { ALERT_STATUS } from '../data/statusValues';
 // The term the advisor pages work with. Change this when a new term starts.
 export const CURRENT_TERM = '261';
 
-// Where "View plan" goes. Zainab (Member 3) owns plan review, so this is the only line to change
-// once her page is ready.
-export function planReviewPath(studentUserId) {
-    return `/advisor/students/${studentUserId}/plan`;
+// Where "View plan" goes: Member 3's plan review page, which is opened by the plan's id.
+export function planReviewPath(plan) {
+    return `/advisor/plans/${plan.id}`;
 }
 
 const list = (value) => (Array.isArray(value) ? value : []);
@@ -31,4 +30,13 @@ export function plannedCourses(plan, term) {
 // Warning alerts about this student that are not resolved yet.
 export function openAlertsFor(data, studentUserId) {
     return list(data.attentionItems).filter((a) => a.studentId === studentUserId && a.status !== ALERT_STATUS.RESOLVED);
+}
+// Total credits of a list of course codes, using the course catalog. Unknown codes count as 0.
+export function creditsOf(codes, catalog) {
+    return codes.reduce((sum, code) => sum + (catalog.find((c) => c.code === code)?.credits ?? 0), 0);
+}
+
+// Course codes the student has completed (the "historical" terms of their plan).
+export function completedCourses(plan) {
+    return (plan?.terms ?? []).filter((t) => t.type === 'historical').flatMap((t) => t.courses);
 }
