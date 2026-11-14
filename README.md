@@ -70,6 +70,7 @@ This is a prototype, so some things are simulated on purpose:
 - **Audit log:** account changes (created, activated, disabled, role changed, password reset and more) are recorded for the admin.
 
 ## How the code is organised
+```
 src/
 ├── assets/                          Images
 ├── components/
@@ -229,7 +230,7 @@ src/
 ├── index.css                        Imports every CSS file
 ├── main.jsx                         Starts the app
 └── routes.jsx                       All routes and the page registry
-
+```
 ### Adding a page
 
 1. Create the page in the folder for your role, for example `src/pages/student/PlanPage.jsx`.
