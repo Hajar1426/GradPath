@@ -1,0 +1,27 @@
+/* Styles for the advisor pages (Member 2). Card, grid and pill styles come from coordinator.css. */
+.advisor-mine { align-self: flex-start; }
+
+/* Advisor profile: green card on the left, details on the right */
+.advisor-profile { display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: start; }
+.advisor-profile__main { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+.advisor-card { padding: 0; overflow: hidden; }
+.advisor-card__header { padding: 18px 20px; background: var(--color-primary); color: #fff; }
+.advisor-card__name { margin: 0; font-size: 20px; font-weight: 600; }
+.advisor-card__degree { margin: 4px 0 0; font-size: 13px; opacity: 0.85; }
+.advisor-card__body { display: flex; flex-direction: column; gap: 10px; padding: 18px 20px; }
+.advisor-card__title { margin: 0; font-size: 14px; color: var(--color-muted); }
+.advisor-card__hours { margin: 0; font-size: 13px; }
+.advisor-card__email { align-self: flex-start; margin-top: 6px; }
+
+.advisor-profile__availability { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 0 0 12px; font-size: 14px; }
+.advisor-profile__text { margin: 0; font-size: 14px; line-height: 1.6; }
+
+.advisor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.advisor-tag { padding: 4px 12px; border: 1px solid var(--color-border); border-radius: 999px; background: #f7f6f2; font-size: 13px; }
+.advisor-tag--course { background: #e7f2ec; border-color: #c4e0d1; color: var(--color-primary); font-weight: 500; }
+
+/* Phone: one column, card on top */
+@media (max-width: 800px) {
+    .advisor-profile { grid-template-columns: 1fr; }
+}
