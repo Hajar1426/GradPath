@@ -34,13 +34,26 @@ import AnnouncementEditorPage from './pages/coordinator/AnnouncementEditorPage';
 import ResourcesManagePage from './pages/coordinator/ResourcesManagePage';
 import AnnouncementsPage from './pages/common/AnnouncementsPage';
 import CourseResourcesPage from './pages/student/CourseResourcesPage';
+import AdvisorDirectoryPage from './pages/student/AdvisorDirectoryPage';
+// Member 2
+import AdvisorProfilePage from './pages/student/AdvisorProfilePage';
+import AdvisorHomePage from './pages/advisor/AdvisorHomePage';
+import AdvisorEditProfilePage from './pages/advisor/AdvisorEditProfilePage';
+import MyStudentsPage from './pages/advisor/MyStudentsPage';
+import AdvisorStudentDetailPage from './pages/advisor/AdvisorStudentDetailPage';
+import AdvisorReportsPage from './pages/advisor/AdvisorReportsPage';
+import AdvisorReportReviewPage from './pages/advisor/AdvisorReportReviewPage';
 import DegreePlanBuilderPage from './pages/student/DegreePlanBuilderPage';
-
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
 // Finished pages: each member adds a line  '/path': PageComponent
 const PAGES = {
-    // '/student/advisors': AdvisorDirectoryPage,
+    // Member 2
+    '/student/advisors': AdvisorDirectoryPage,
+    '/advisor': AdvisorHomePage,
+    '/advisor/profile': AdvisorEditProfilePage,
+    '/advisor/students': MyStudentsPage,
+    '/advisor/reports': AdvisorReportsPage,
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,
@@ -60,7 +73,12 @@ const PAGES = {
 
 // Pages that are not in the sidebar (details pages), per role
 const EXTRA_ROUTES = {
-    // [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorPublicProfilePage /> }],
+    // Member 2
+    [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorProfilePage /> }],
+    [ROLES.ADVISOR]: [
+        { path: '/advisor/students/:userId', element: <AdvisorStudentDetailPage /> },
+        { path: '/advisor/reports/:id', element: <AdvisorReportReviewPage /> },
+    ],
     [ROLES.ADMIN]: [{ path: '/admin/users/new', element: <AddUserPage /> }],
     // Member 4 (dean and chairperson get these too, in view-only mode)
     [ROLES.COORDINATOR]: [
