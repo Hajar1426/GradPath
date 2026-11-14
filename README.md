@@ -73,19 +73,184 @@ This is a prototype, so some things are simulated on purpose:
 
 ```
 src/
-  components/
-    common/      Shared controls (Button, Input, Select, DataTable, Modal, Toast, ...)
-    layout/      Sidebar, page header, protected route, app layout
-  context/       Data, authentication and toast providers
-  data/          Demo data and the agreed status values (statusValues.js)
-  hooks/         useData, useAuth, useToast, useNotifications, useStudentInfo, useReadOnly, ...
-  pages/
-    common/      Landing, sign in, sign up, notifications, settings, ...
-    admin/       Admin pages
-    student/ advisor/ coordinator/   One folder per member's pages
-  styles/        CSS files, imported from index.css
-  utils/         Small helpers (roles and navigation, study rules, email rules, search, dates)
-  routes.jsx     All routes, plus the page registry
+├── assets/                                   Images
+│   ├── hero.png
+│   ├── react.svg
+│   └── vite.svg
+├── components/
+│   ├── advising/                             Advisor profile pieces
+│   │   └── TagInput.jsx
+│   ├── common/                               Shared controls
+│   │   ├── Alert.jsx
+│   │   ├── BackLink.jsx
+│   │   ├── Button.jsx
+│   │   ├── ConfirmationDialog.jsx
+│   │   ├── DataTable.jsx
+│   │   ├── EditOnly.jsx                      Hides edit actions for view-only roles
+│   │   ├── EmptyState.jsx
+│   │   ├── ErrorState.jsx
+│   │   ├── Input.jsx
+│   │   ├── LoadingState.jsx
+│   │   ├── Modal.jsx
+│   │   ├── Pagination.jsx
+│   │   ├── ReadOnlyBanner.jsx
+│   │   ├── SearchBar.jsx
+│   │   ├── Select.jsx
+│   │   ├── StatusBadge.jsx
+│   │   ├── Tabs.jsx
+│   │   ├── Textarea.jsx
+│   │   └── Toast.jsx
+│   ├── coordinator/                          Coordinator-only pieces (dialogs, charts, import tables, schedule)
+│   │   ├── AnnouncementPreview.jsx
+│   │   ├── AudienceSelector.jsx
+│   │   ├── AuthorizationDecisionDialog.jsx
+│   │   ├── AvailabilityBadge.jsx
+│   │   ├── AvailabilityOverrideDialog.jsx
+│   │   ├── CategoryChips.jsx
+│   │   ├── Charts.jsx
+│   │   ├── EditAdvisorCapacityDialog.jsx
+│   │   ├── FileDropzone.jsx
+│   │   ├── Icons.jsx
+│   │   ├── ImportHistoryTable.jsx
+│   │   ├── ImportPreviewTable.jsx
+│   │   ├── ImportSummary.jsx
+│   │   ├── OfferingWarnings.jsx
+│   │   ├── ResourceActions.jsx
+│   │   ├── StatCard.jsx
+│   │   └── WeeklySchedule.jsx
+│   ├── layout/                               App frame
+│   │   ├── AppLayout.jsx
+│   │   ├── NavIcon.jsx
+│   │   ├── PageHeader.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   └── Sidebar.jsx
+│   └── planning/                             Degree plan builder pieces
+│       ├── CoursePicker.jsx
+│       ├── PlanBoard.jsx
+│       ├── PlanChecklist.jsx
+│       ├── PlannedCourseCard.jsx
+│       └── TermColumn.jsx
+├── context/                                  Providers
+│   ├── AuthContext.jsx
+│   ├── contexts.js
+│   ├── DataContext.jsx
+│   └── ToastContext.jsx
+├── data/                                     Demo data and the agreed status values
+│   ├── academicCalendar.js
+│   ├── advisors.js
+│   ├── announcements.js
+│   ├── annualReports.js
+│   ├── attentionItems.js
+│   ├── capacityOverrides.js
+│   ├── courseAuthorizations.js
+│   ├── courses.js
+│   ├── degreePlans.js
+│   ├── imports.js
+│   ├── index.js
+│   ├── notifications.js
+│   ├── offerings.js
+│   ├── programRules.js
+│   ├── resources.js
+│   ├── roster.js                             Approved student list
+│   ├── statusValues.js                       Agreed status words
+│   ├── students.js
+│   └── users.js
+├── hooks/                                    Custom hooks
+│   ├── useAnnouncementCount.js
+│   ├── useAuth.js
+│   ├── useData.js
+│   ├── useNotifications.js
+│   ├── useReadOnly.js
+│   ├── useSecuritySettings.js
+│   ├── useSessionTimeout.js
+│   ├── useStudentInfo.js
+│   └── useToast.js
+├── pages/
+│   ├── admin/                                System Administrator pages
+│   │   ├── AddUserPage.jsx
+│   │   ├── AdminDashboardPage.jsx
+│   │   ├── AuditLogPage.jsx
+│   │   ├── SecuritySettingsPage.jsx
+│   │   └── UserAccountsPage.jsx
+│   ├── advisor/                              Advisor pages
+│   │   ├── AdvisorAlertsPage.jsx
+│   │   ├── AdvisorEditProfilePage.jsx
+│   │   ├── AdvisorHomePage.jsx
+│   │   ├── AdvisorReportReviewPage.jsx
+│   │   ├── AdvisorReportsPage.jsx
+│   │   ├── AdvisorStudentDetailPage.jsx
+│   │   └── MyStudentsPage.jsx
+│   ├── common/                               Pages for everyone
+│   │   ├── ActivatePage.jsx
+│   │   ├── AnnouncementsPage.jsx
+│   │   ├── ForbiddenPage.jsx
+│   │   ├── ForgotPasswordPage.jsx
+│   │   ├── LandingPage.jsx
+│   │   ├── NotFoundPage.jsx
+│   │   ├── NotificationsPage.jsx
+│   │   ├── PlaceholderPage.jsx
+│   │   ├── ResetPasswordPage.jsx
+│   │   ├── SettingsPage.jsx
+│   │   ├── SignInPage.jsx
+│   │   └── SignUpPage.jsx
+│   ├── coordinator/                          Coordinator pages
+│   │   ├── AdvisorCapacityPage.jsx
+│   │   ├── announcementActions.js
+│   │   ├── AnnouncementEditorPage.jsx
+│   │   ├── AnnouncementsManagePage.jsx
+│   │   ├── CoordinatorDashboardPage.jsx
+│   │   ├── CoursesSchedulePage.jsx
+│   │   ├── ImportResultPage.jsx
+│   │   ├── OfferingEditorPage.jsx
+│   │   ├── OfferingsPanel.jsx
+│   │   ├── RecordImportPage.jsx
+│   │   ├── RequestsPanel.jsx
+│   │   ├── ResourcesManagePage.jsx
+│   │   ├── StatisticsPage.jsx
+│   │   └── StudentListPage.jsx
+│   └── student/                              Student pages
+│       ├── AdvisorDirectoryPage.jsx
+│       ├── AdvisorProfilePage.jsx
+│       ├── CourseResourcesPage.jsx
+│       └── DegreePlanBuilderPage.jsx
+├── styles/                                   CSS, imported from index.css
+│   ├── advisor.css
+│   ├── controls.css
+│   ├── coordinator.css
+│   ├── landing.css
+│   ├── layout.css
+│   ├── notifications.css
+│   ├── planning.css
+│   ├── settings.css
+│   └── variables.css
+├── utils/                                    Small helpers
+│   ├── activation.js
+│   ├── advisorHelpers.js
+│   ├── auditLabels.js
+│   ├── checkConflicts.js
+│   ├── checkPrerequisites.js
+│   ├── computeAvailability.js
+│   ├── coordinatorHelpers.js
+│   ├── coordinatorReports.js
+│   ├── downloadCsv.js
+│   ├── downloadXlsx.js
+│   ├── emailRules.js
+│   ├── formatDate.js
+│   ├── importRules.js
+│   ├── matchesSearch.js
+│   ├── offeringWarnings.js
+│   ├── parseXlsx.js
+│   ├── resourceFiles.js
+│   ├── roles.js                              Roles and sidebar links
+│   ├── schedule.js
+│   ├── storage.js
+│   ├── studyRules.js
+│   ├── validatePlan.js
+│   └── validateProgramRequirements.js
+├── App.jsx                                   Providers and routes
+├── index.css                                 Imports every CSS file
+├── main.jsx                                  Starts the app
+└── routes.jsx                                All routes and the page registry
 ```
 
 ### Adding a page
@@ -143,6 +308,41 @@ Sign in as **coordinator@kfupm.edu.sa** to make changes. Sign in as **dean@kfupm
 - **Excel files** are read and written in the browser with the `xlsx` package. Nothing is uploaded to a server.
 - **Uploaded resource files** are kept in the browser's local storage, so each file is limited to 1 MB. The demo files are in `public/resources/`, and the sample Excel files are in `public/samples/`.
 - **The term key dates** on the Home Page are a fixed list in `CoordinatorDashboardPage.jsx`.
+
+## Administrator portal and shared interface (Member 1)
+
+Sign in as **admin@kfupm.edu.sa**. The sidebar of every role is built from the same layout, so the user name sits under the logo, the links have icons, **Sign out** is right under the last link, and **Notifications** and **Announcements** show a number when there is something new.
+
+### Pages
+
+| Sidebar link | Route | What the administrator can do |
+| --- | --- | --- |
+| Dashboard | `/admin` | Counts of all, active, pending and disabled accounts (each count opens Users with that filter), how many approved students have an account, and the latest audit events. |
+| Users | `/admin/users` | Search and filter accounts by role and status. For each account: change role, disable or enable, send a password reset link, and resend the activation email. A "What each role can do" list helps choose the right role. |
+| (Add user) | `/admin/users/new` | Create an account. Choose the role first. A student must be on the approved student list and their name comes from it. |
+| Audit | `/admin/audit` | Who did what, to whom and when, in plain words. Events for the whole system show "Whole system". |
+| Security | `/admin/security` | Set the idle session timeout (a whole number of minutes from 1 to 120). It is enforced for every signed-in user. |
+| Notifications, Settings | `/notifications`, `/settings` | Shared by every role. Settings shows name, email and role as read-only, and lets the user change their password and notification preferences. |
+
+### Rules
+
+- Students create their own account only if their email is on the approved list (**Trying the sign-up flow** above). All other roles are created by the administrator.
+- Sign in, sign up and forgot password all require an email ending in `@kfupm.edu.sa`.
+- Disabled accounts cannot sign in. Their records and history are kept.
+- Changes to accounts and security settings are written to the audit log (`addAuditEvent`, readable names in `src/utils/auditLabels.js`).
+
+### Try it
+
+- **Add user:** Users → Add user. Choose Student and type `omar.alqahtani@kfupm.edu.sa`: the name fills in from the approved list.
+- **Reset link:** in Users, choose Send reset link, open the demo link, and set a new password.
+- **Timeout:** in Security, set 1 minute, stay idle, and the next action returns to Sign in with a notice.
+- **Audit:** do any of the actions above and open Audit.
+
+### What is simulated in this part
+
+- Activation and reset emails are shown on screen as demo links.
+- Passwords are stored as plain text in the browser, only acceptable for a demo.
+- Each browser has its own copy of the data. Use **Settings → Reset demo data** to start again.
 
 ## Team
 
