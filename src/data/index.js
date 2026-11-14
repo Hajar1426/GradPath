@@ -11,6 +11,7 @@ import { advisors } from './advisors';
 import { students } from './students';
 import { courseAuthorizations } from './courseAuthorizations';
 import { courses } from './courses';
+import { degreePlans } from './degreePlans';
 
 const copy = (list) => list.map((item) => ({ ...item }));
 
@@ -33,5 +34,6 @@ export function getInitialData() {
         courseAuthorizations: copy(courseAuthorizations),
         //Member 3
         courses: copy(courses),
+        degreePlans: copy(degreePlans),
     };
 }
