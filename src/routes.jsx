@@ -35,6 +35,8 @@ import ResourcesManagePage from './pages/coordinator/ResourcesManagePage';
 import AnnouncementsPage from './pages/common/AnnouncementsPage';
 import CourseResourcesPage from './pages/student/CourseResourcesPage';
 import AdvisorDirectoryPage from './pages/student/AdvisorDirectoryPage';
+// Member 2
+import AdvisorProfilePage from './pages/student/AdvisorProfilePage';
 
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
@@ -61,7 +63,8 @@ const PAGES = {
 
 // Pages that are not in the sidebar (details pages), per role
 const EXTRA_ROUTES = {
-    // [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorPublicProfilePage /> }],
+    // Member 2
+    [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorProfilePage /> }],
     [ROLES.ADMIN]: [{ path: '/admin/users/new', element: <AddUserPage /> }],
     // Member 4 (dean and chairperson get these too, in view-only mode)
     [ROLES.COORDINATOR]: [
