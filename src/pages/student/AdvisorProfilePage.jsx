@@ -7,7 +7,7 @@ import { MailIcon, PinIcon } from '../../components/coordinator/Icons';
 import { useAuth } from '../../hooks/useAuth';
 import { useData } from '../../hooks/useData';
 import { AVAILABILITY } from '../../data/statusValues';
-import { ADVISEE_SLOTS, computeAvailability, countAssigned } from '../../utils/computeAvailability';
+import { capacityOf, computeAvailability, countAssigned } from '../../utils/computeAvailability';
 
 // Public profile of one advisor, opened from the directory with Read More.
 // The address is /student/advisors/:id, for example /student/advisors/adv-2.
@@ -72,7 +72,7 @@ export default function AdvisorProfilePage() {
                         <h2 className="panel__title" id="availability-title">Availability</h2>
                         <p className="advisor-profile__availability">
                             <AvailabilityBadge value={availability} />
-                            <span>{count} of {ADVISEE_SLOTS} advisee slots used</span>
+                            <span>{count} of {capacityOf(advisor)} advisee slots used</span>
                         </p>
                         {availability === AVAILABILITY.UNAVAILABLE && !isMyAdvisor && (
                             <Alert variant="warning" title="Not taking new students right now">
