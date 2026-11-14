@@ -7,6 +7,7 @@ import PlanChecklist from '../../components/planning/PlanChecklist';
 
 import { validatePlan } from '../../utils/validatePlan';
 import { useStudentInfo } from '../../hooks/useStudentInfo';
+import PlanBoard from '../../components/planning/PlanBoard';
 
 export default function DegreePlanBuilderPage() {
     const { currentUser } = useAuth();
@@ -54,49 +55,10 @@ const validation = validatePlan({
     warnings={validation.warnings}
 />
 
-            <section>
-                <h2>Historical Coursework</h2>
-
-                {plan.terms
-                    .filter((term) => term.type === 'historical')
-                    .map((term) => (
-                        <div key={term.term}>
-                            <h3>Term {term.term}</h3>
-
-                            <ul>
-                                {term.courses.map((courseCode) => (
-                                    <li key={courseCode}>
-                                        {courseCode}
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-            </section>
-
-            <section>
-                <h2>Planned Coursework</h2>
-
-                {plan.terms
-                    .filter((term) => term.type === 'planned')
-                    .map((term) => (
-                        <div key={term.term}>
-                            <h3>Term {term.term}</h3>
-
-                            {term.courses.length > 0 ? (
-                                <ul>
-                                    {term.courses.map((courseCode) => (
-                                        <li key={courseCode}>
-                                            {courseCode}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>No courses planned yet.</p>
-                            )}
-                        </div>
-                    ))}
-            </section>
+            <PlanBoard
+    terms={plan.terms}
+    courses={data.courses ?? []}
+/>
         </>
     );
 }

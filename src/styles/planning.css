@@ -212,3 +212,225 @@
         grid-template-columns: 1fr;
     }
 }
+/* =========================================================
+   PLAN BOARD
+   ========================================================= */
+
+.plan-board {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.75rem;
+}
+
+.plan-board__section {
+    display: grid;
+    gap: 0.85rem;
+}
+
+.plan-board__heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.plan-board__heading h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.plan-board__heading p {
+    margin: 0.25rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+}
+
+.plan-board__self-reported {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    color: var(--color-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.plan-board__terms {
+    display: grid;
+    gap: 0.75rem;
+}
+
+
+/* =========================================================
+   TERM ROW
+   ========================================================= */
+
+.plan-term {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 1rem;
+    padding: 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+}
+
+.plan-term--historical {
+    background: #f8f7f3;
+}
+
+.plan-term__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.plan-term__info h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.plan-term__info p {
+    margin: 0.2rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.75rem;
+}
+
+.plan-term__count {
+    color: var(--color-muted);
+    font-size: 0.72rem;
+}
+
+
+/* =========================================================
+   COURSES INSIDE TERM
+   ========================================================= */
+
+.plan-term__courses {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+}
+
+.planned-course-card {
+    min-width: 0;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: var(--color-surface);
+}
+
+.planned-course-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.planned-course-card__top strong {
+    color: var(--color-text);
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.planned-course-card__area {
+    flex-shrink: 0;
+    padding: 0.15rem 0.4rem;
+    border-radius: 999px;
+    background: #edf6f1;
+    color: var(--color-primary);
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.planned-course-card__title {
+    margin: 0.35rem 0 0.65rem;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+    line-height: 1.4;
+}
+
+.planned-course-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.67rem;
+}
+
+.planned-course-card__history {
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   ADD COURSE SLOT
+   ========================================================= */
+
+.plan-term__add {
+    min-height: 92px;
+    border: 1px dashed var(--color-border);
+    border-radius: 9px;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.plan-term__add:hover {
+    border-color: var(--color-primary);
+    background: #edf6f1;
+}
+
+.plan-term__add span {
+    margin-right: 0.25rem;
+    font-size: 1rem;
+}
+
+.plan-term__empty {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+}
+
+
+/* =========================================================
+   HISTORICAL NOTE
+   ========================================================= */
+
+.plan-board__history-note {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE PLAN BOARD
+   ========================================================= */
+
+@media (max-width: 1000px) {
+    .plan-term {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .plan-term__courses {
+        grid-template-columns: 1fr;
+    }
+
+    .plan-board__heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
