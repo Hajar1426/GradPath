@@ -34,6 +34,10 @@ const RULES = [
     ['statistic', 'chart'],
     ['request', 'inbox'],
     ['authoriz', 'check'],
+    ['capacity', 'people'],
+    ['offering', 'calendar'],
+    ['import', 'inbox'],
+    ['resource', 'book'],
 ];
 
 export default function NavIcon({ to, isHome }) {
