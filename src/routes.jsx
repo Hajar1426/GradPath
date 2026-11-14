@@ -46,10 +46,14 @@ import AdvisorReportReviewPage from './pages/advisor/AdvisorReportReviewPage';
 import AdvisorAlertsPage from './pages/advisor/AdvisorAlertsPage';
 import StudentDashboardPage from './pages/student/StudentDashboardPage';
 import DegreePlanBuilderPage from './pages/student/DegreePlanBuilderPage';
+import PlanReviewPage from './pages/advisor/PlanReviewPage';
+import PlanReviewDetailPage from './pages/advisor/PlanReviewDetailPage';
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
+
 
 // Finished pages: each member adds a line  '/path': PageComponent
 const PAGES = {
+    '/advisor/plans': PlanReviewPage,
     // Member 2
     '/student/advisors': AdvisorDirectoryPage,
     '/advisor': AdvisorHomePage,
@@ -77,20 +81,59 @@ const PAGES = {
 
 // Pages that are not in the sidebar (details pages), per role
 const EXTRA_ROUTES = {
-    // Member 2
-    [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorProfilePage /> }],
-    [ROLES.ADVISOR]: [
-        { path: '/advisor/students/:userId', element: <AdvisorStudentDetailPage /> },
-        { path: '/advisor/reports/:id', element: <AdvisorReportReviewPage /> },
+    // Member 2 + Member 3
+    [ROLES.STUDENT]: [
+        {
+            path: '/student/advisors/:id',
+            element: <AdvisorProfilePage />,
+        },
     ],
-    [ROLES.ADMIN]: [{ path: '/admin/users/new', element: <AddUserPage /> }],
-    // Member 4 (dean and chairperson get these too, in view-only mode)
+
+    [ROLES.ADVISOR]: [
+        {
+            path: '/advisor/students/:userId',
+            element: <AdvisorStudentDetailPage />,
+        },
+        {
+            path: '/advisor/reports/:id',
+            element: <AdvisorReportReviewPage />,
+        },
+        {
+            path: '/advisor/plans/:id',
+            element: <PlanReviewDetailPage />,
+        },
+    ],
+
+    [ROLES.ADMIN]: [
+        {
+            path: '/admin/users/new',
+            element: <AddUserPage />,
+        },
+    ],
+
+    // Member 4
     [ROLES.COORDINATOR]: [
-        { path: '/coordinator/import/result', element: <ImportResultPage /> },
-        // Requests now live in a tab of Courses & Schedule. Keep the old address working.
-        { path: '/coordinator/requests', element: <Navigate to="/coordinator/offerings?tab=requests" replace /> },
-        { path: '/coordinator/offerings/:id', element: <OfferingEditorPage /> },
-        { path: '/coordinator/announcements/:id', element: <AnnouncementEditorPage /> },
+        {
+            path: '/coordinator/import/result',
+            element: <ImportResultPage />,
+        },
+        {
+            path: '/coordinator/requests',
+            element: (
+                <Navigate
+                    to="/coordinator/offerings?tab=requests"
+                    replace
+                />
+            ),
+        },
+        {
+            path: '/coordinator/offerings/:id',
+            element: <OfferingEditorPage />,
+        },
+        {
+            path: '/coordinator/announcements/:id',
+            element: <AnnouncementEditorPage />,
+        },
     ],
 };
 
