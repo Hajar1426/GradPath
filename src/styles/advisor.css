@@ -94,3 +94,5 @@
 .todo-card__text { flex: 1 1 260px; margin: 0; font-size: 14px; }
 .advisor-box { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border: 1px solid var(--color-border); border-radius: 10px; font-size: 14px; }
 .advisor-box__label { font-size: 12px; color: var(--color-muted); }
+/* Student profile */
+.advisor-detail__tags { margin-top: 12px; }
