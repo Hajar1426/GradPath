@@ -41,6 +41,8 @@ import AdvisorHomePage from './pages/advisor/AdvisorHomePage';
 import AdvisorEditProfilePage from './pages/advisor/AdvisorEditProfilePage';
 import MyStudentsPage from './pages/advisor/MyStudentsPage';
 import AdvisorStudentDetailPage from './pages/advisor/AdvisorStudentDetailPage';
+import AdvisorReportsPage from './pages/advisor/AdvisorReportsPage';
+import AdvisorReportReviewPage from './pages/advisor/AdvisorReportReviewPage';
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
@@ -51,6 +53,7 @@ const PAGES = {
     '/advisor': AdvisorHomePage,
     '/advisor/profile': AdvisorEditProfilePage,
     '/advisor/students': MyStudentsPage,
+    '/advisor/reports': AdvisorReportsPage,
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,
@@ -71,7 +74,10 @@ const PAGES = {
 const EXTRA_ROUTES = {
     // Member 2
     [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorProfilePage /> }],
-    [ROLES.ADVISOR]: [{ path: '/advisor/students/:userId', element: <AdvisorStudentDetailPage /> }],
+    [ROLES.ADVISOR]: [
+        { path: '/advisor/students/:userId', element: <AdvisorStudentDetailPage /> },
+        { path: '/advisor/reports/:id', element: <AdvisorReportReviewPage /> },
+    ],
     [ROLES.ADMIN]: [{ path: '/admin/users/new', element: <AddUserPage /> }],
     // Member 4 (dean and chairperson get these too, in view-only mode)
     [ROLES.COORDINATOR]: [
