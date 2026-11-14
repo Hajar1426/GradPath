@@ -10,6 +10,9 @@ export const programRules = {
     // =========================================================
     [PROGRAMS.MS_CS]: {
         name: 'MS Computer Science',
+        courseworkCredits: 24,
+        thesisCredits: 6,
+        totalCredits: 30,
 
         allowedMajorAreas: ['A', 'B'],
 
@@ -44,6 +47,9 @@ export const programRules = {
     // =========================================================
     [PROGRAMS.PHD_CS]: {
         name: 'PhD Computer Science',
+        courseworkCredits: 30,
+        preDissertationCredits: 3,
+        dissertationCredits: 9,
 
         allowedMajorAreas: ['A', 'B', 'C', 'D'],
 
@@ -87,6 +93,9 @@ export const programRules = {
     // =========================================================
     [PROGRAMS.MS_SECURITY]: {
         name: 'MS Security & Information Assurance',
+        courseworkCredits: 24,
+        thesisCredits: 6,
+        totalCredits: 30,
 
         coreCourses: [
             'ICS 555',
