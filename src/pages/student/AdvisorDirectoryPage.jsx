@@ -9,7 +9,7 @@ import { MailIcon, PeopleIcon, PersonIcon, PinIcon } from '../../components/coor
 import { useAuth } from '../../hooks/useAuth';
 import { useData } from '../../hooks/useData';
 import { AVAILABILITY } from '../../data/statusValues';
-import { ADVISEE_SLOTS, AVAILABILITY_LABEL, computeAvailability, countAssigned } from '../../utils/computeAvailability';
+import { AVAILABILITY_LABEL, capacityOf, computeAvailability, countAssigned } from '../../utils/computeAvailability';
 import { matchesSearch } from '../../utils/matchesSearch';
 
 // Colour of the slots pill for each availability (same classes as the coordinator's CCM Faculty page).
@@ -88,8 +88,7 @@ export default function AdvisorDirectoryPage() {
             <div className="panel">
                 <PageHeader
                     title="CCM Faculty"
-                    subtitle={`Find an advisor by name or research area. Each advisor can take ${ADVISEE_SLOTS} students.`}
-                />
+                    subtitle="Find an advisor by name or research area. Slots show how many students each advisor has and can take."                />
                 <div className="filters">
                     <SearchBar value={query} onChange={setQuery} placeholder="Search by name or research area" label="Search advisors" />
                     <Select label="Department" options={departmentOptions} value={department} onChange={(e) => setDepartment(e.target.value)} />
@@ -125,7 +124,7 @@ export default function AdvisorDirectoryPage() {
                             <p className="faculty-card__line">
                                 <PeopleIcon /> <strong>Advisee slots:</strong>
                                 <span className={`slot-pill slot-pill--${TONE[a.availability]}`}>
-                                    {a.count}/{ADVISEE_SLOTS}
+                                    {a.count}/{capacityOf(a)}
                                 </span>
                             </p>
                             {/* Written label, so colour is never the only signal */}
