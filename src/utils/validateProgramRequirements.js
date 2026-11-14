@@ -22,6 +22,14 @@ function getCourseLevel(courseCode) {
     return Math.floor(Number(match[1]) / 100) * 100;
 }
 
+function calculateCredits(courseList) {
+    return courseList.reduce(
+        (total, course) => total + (course.credits ?? 0),
+        0
+    );
+}
+
+
 function makeRequirement({
     id,
     group,
@@ -189,6 +197,49 @@ function validateMSCS(majorArea, selectedCourses, courseCodes) {
             met: courseCodes.includes(rule.thesis),
         })
     );
+    // =========================================================
+// COURSEWORK CREDITS
+// =========================================================
+
+// Thesis is not part of the 24 coursework credits.
+// The seminar is 0 credits, so including/excluding it does not
+// affect the total, but we exclude it for clarity.
+const courseworkCourses = selectedCourses.filter(
+    (course) =>
+        course.code !== rule.thesis &&
+        course.code !== rule.seminar
+);
+
+const courseworkCredits = calculateCredits(courseworkCourses);
+
+results.push(
+    makeRequirement({
+        id: 'coursework-credits',
+        group: 'Credit Requirements',
+        label: `${rule.courseworkCredits} coursework credits`,
+        met: courseworkCredits >= rule.courseworkCredits,
+        current: courseworkCredits,
+        required: rule.courseworkCredits,
+        courses: courseworkCourses.map((course) => course.code),
+    })
+);
+const thesisCourse = selectedCourses.find(
+    (course) => course.code === rule.thesis
+);
+
+const thesisCredits = thesisCourse?.credits ?? 0;
+
+results.push(
+    makeRequirement({
+        id: 'thesis-credits',
+        group: 'Credit Requirements',
+        label: `${rule.thesisCredits} thesis credits`,
+        met: thesisCredits >= rule.thesisCredits,
+        current: thesisCredits,
+        required: rule.thesisCredits,
+        courses: thesisCourse ? [thesisCourse.code] : [],
+    })
+);
 
     return results;
 }
@@ -448,7 +499,79 @@ function validatePhDCS(majorArea, selectedCourses, courseCodes) {
             met: courseCodes.includes(rule.dissertation),
         })
     );
+// =========================================================
+// CREDIT REQUIREMENTS
+// =========================================================
 
+// ICS 699 is a zero-credit seminar.
+// ICS 711 and ICS 712 are handled separately and should not
+// be counted toward the required 30 coursework credits.
+const courseworkCourses = selectedCourses.filter(
+    (course) =>
+        course.code !== rule.seminar &&
+        course.code !== rule.preDissertation &&
+        course.code !== rule.dissertation
+);
+
+const courseworkCredits = calculateCredits(courseworkCourses);
+
+results.push(
+    makeRequirement({
+        id: 'phd-coursework-credits',
+        group: 'Credit Requirements',
+        label: `${rule.courseworkCredits} coursework credits`,
+        met: courseworkCredits >= rule.courseworkCredits,
+        current: courseworkCredits,
+        required: rule.courseworkCredits,
+        courses: courseworkCourses.map((course) => course.code),
+    })
+);
+const preDissertationCourse = selectedCourses.find(
+    (course) => course.code === rule.preDissertation
+);
+
+const preDissertationCredits =
+    preDissertationCourse?.credits ?? 0;
+
+results.push(
+    makeRequirement({
+        id: 'phd-pre-dissertation-credits',
+        group: 'Credit Requirements',
+        label:
+            `${rule.preDissertationCredits} ` +
+            'pre-dissertation credits',
+        met:
+            preDissertationCredits >=
+            rule.preDissertationCredits,
+        current: preDissertationCredits,
+        required: rule.preDissertationCredits,
+        courses: preDissertationCourse
+            ? [preDissertationCourse.code]
+            : [],
+    })
+);
+const dissertationCourse = selectedCourses.find(
+    (course) => course.code === rule.dissertation
+);
+
+const dissertationCredits =
+    dissertationCourse?.credits ?? 0;
+
+results.push(
+    makeRequirement({
+        id: 'phd-dissertation-credits',
+        group: 'Credit Requirements',
+        label: `${rule.dissertationCredits} dissertation credits`,
+        met:
+            dissertationCredits >=
+            rule.dissertationCredits,
+        current: dissertationCredits,
+        required: rule.dissertationCredits,
+        courses: dissertationCourse
+            ? [dissertationCourse.code]
+            : [],
+    })
+);
     return results;
 }
 
@@ -604,6 +727,47 @@ function validateMSSecurity(selectedCourses, courseCodes) {
             met: courseCodes.includes(rule.thesis),
         })
     );
+    // =========================================================
+// CREDIT REQUIREMENTS
+// =========================================================
+
+const courseworkCourses = selectedCourses.filter(
+    (course) =>
+        course.code !== rule.thesis &&
+        course.code !== rule.seminar
+);
+
+const courseworkCredits = calculateCredits(courseworkCourses);
+
+results.push(
+    makeRequirement({
+        id: 'security-coursework-credits',
+        group: 'Credit Requirements',
+        label: `${rule.courseworkCredits} coursework credits`,
+        met: courseworkCredits >= rule.courseworkCredits,
+        current: courseworkCredits,
+        required: rule.courseworkCredits,
+        courses: courseworkCourses.map((course) => course.code),
+    })
+);
+
+const thesisCourse = selectedCourses.find(
+    (course) => course.code === rule.thesis
+);
+
+const thesisCredits = thesisCourse?.credits ?? 0;
+
+results.push(
+    makeRequirement({
+        id: 'security-thesis-credits',
+        group: 'Credit Requirements',
+        label: `${rule.thesisCredits} thesis credits`,
+        met: thesisCredits >= rule.thesisCredits,
+        current: thesisCredits,
+        required: rule.thesisCredits,
+        courses: thesisCourse ? [thesisCourse.code] : [],
+    })
+);
 
     return results;
 }
