@@ -1,0 +1,5 @@
+GradPath demo resource: SWE 530 project guidelines
+
+- Teams of 3 to 4 students.
+- Proposal due in week 4, architecture document in week 9, final demo in week 15.
+- Grading: proposal 10%, architecture 30%, implementation 40%, demo 20%.
