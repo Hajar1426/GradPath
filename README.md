@@ -70,6 +70,7 @@ This is a prototype, so some things are simulated on purpose:
 - **Audit log:** account changes (created, activated, disabled, role changed, password reset and more) are recorded for the admin.
 
 ## How the code is organised
+'''
 src/
   main.jsx       Starts the app
   App.jsx        Wraps the app in its providers and routes
@@ -107,6 +108,7 @@ src/
                  import and files (importRules, parseXlsx, downloadCsv, downloadXlsx,
                  resourceFiles)
                  general (storage, formatDate, matchesSearch)
+'''
 
 ### Adding a page
 
