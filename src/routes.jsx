@@ -44,6 +44,7 @@ import AdvisorStudentDetailPage from './pages/advisor/AdvisorStudentDetailPage';
 import AdvisorReportsPage from './pages/advisor/AdvisorReportsPage';
 import AdvisorReportReviewPage from './pages/advisor/AdvisorReportReviewPage';
 import AdvisorAlertsPage from './pages/advisor/AdvisorAlertsPage';
+import StudentDashboardPage from './pages/student/StudentDashboardPage';
 import DegreePlanBuilderPage from './pages/student/DegreePlanBuilderPage';
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
@@ -56,6 +57,7 @@ const PAGES = {
     '/advisor/students': MyStudentsPage,
     '/advisor/reports': AdvisorReportsPage,
     '/advisor/alerts': AdvisorAlertsPage,
+    '/student': StudentDashboardPage,
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,
