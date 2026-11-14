@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export default function PlannedCourseCard({
     courseCode,
     courses = [],
@@ -7,6 +9,8 @@ export default function PlannedCourseCard({
     onRemove,
     onMove,
 }) {
+    const [actionsOpen, setActionsOpen] = useState(false);
+
     const course = courses.find(
         (item) => item.code === courseCode
     );
@@ -43,41 +47,56 @@ export default function PlannedCourseCard({
             </div>
 
             <div className="planned-course-card__actions">
-                <select
-                    aria-label={`Move ${courseCode} to another term`}
-                    value=""
-                    onChange={(event) => {
-                        if (event.target.value) {
-                            onMove?.(
-                                courseCode,
-                                termCode,
-                                event.target.value
-                            );
-                        }
-                    }}
-                >
-                    <option value="">Move to...</option>
-
-                    {availableTerms
-                        .filter((term) => term.term !== termCode)
-                        .map((term) => (
-                            <option
-                                key={term.term}
-                                value={term.term}
-                            >
-                                Term {term.term}
-                            </option>
-                        ))}
-                </select>
-
                 <button
                     type="button"
-                    onClick={() =>
-                        onRemove?.(termCode, courseCode)
-                    }
+                    className="planned-course-card__actions-button"
+                    aria-expanded={actionsOpen}
+                    onClick={() => setActionsOpen((open) => !open)}
                 >
-                    Remove
+                    Actions
+                    <span aria-hidden="true">⌄</span>
                 </button>
+
+                {actionsOpen && (
+                    <div className="planned-course-card__menu">
+                        <p className="planned-course-card__menu-label">
+                            Move to
+                        </p>
+
+                        {availableTerms
+                            .filter((term) => term.term !== termCode)
+                            .map((term) => (
+                                <button
+                                    key={term.term}
+                                    type="button"
+                                    onClick={() => {
+                                        onMove?.(
+                                            courseCode,
+                                            termCode,
+                                            term.term
+                                        );
+
+                                        setActionsOpen(false);
+                                    }}
+                                >
+                                    Term {term.term}
+                                </button>
+                            ))}
+
+                        <div className="planned-course-card__menu-divider" />
+
+                        <button
+                            type="button"
+                            className="planned-course-card__remove"
+                            onClick={() => {
+                                onRemove?.(termCode, courseCode);
+                                setActionsOpen(false);
+                            }}
+                        >
+                            Remove course
+                        </button>
+                    </div>
+                )}
             </div>
         </article>
     );
