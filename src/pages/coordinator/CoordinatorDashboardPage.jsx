@@ -157,13 +157,25 @@ export default function CoordinatorDashboardPage() {
             key: 'actions',
             header: <span className="sr-only">Actions</span>,
             render: (r) =>
-                r.attentionId ? (
-                    <Button variant="ghost" onClick={() => resolveItem(r)} aria-label={`Mark ${r.name} as handled`}>
-                        Mark handled
-                    </Button>
-                ) : (
-                    <Link className="btn btn--ghost" to="/coordinator/capacity">Assign</Link>
-                ),
+    r.attentionId ? (
+        <Button
+            variant="ghost"
+            onClick={() => resolveItem(r)}
+            aria-label={`Mark ${r.name} as handled`}
+        >
+            Mark handled
+        </Button>
+    ) : r.email ? (
+        <a
+            href={`mailto:${r.email}`}
+            className="btn btn--ghost"
+            aria-label={`Email ${r.name}`}
+        >
+            Email student
+        </a>
+    ) : (
+        <span className="hint">Email unavailable</span>
+    ),
         });
     }
 

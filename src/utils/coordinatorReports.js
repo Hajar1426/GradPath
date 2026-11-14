@@ -23,7 +23,7 @@ export function studentRecords(data) {
             ...r,
             userId: user?.id ?? null,
             advisorId: record?.advisorId ?? null,
-            program: record?.program ?? `${DEGREE_LABEL[r.degree] ?? ''} (program not set)`,
+            program: record?.program ?? `${DEGREE_LABEL[r.degree] ?? ''} `,
             studyLoad: getStudyLoad(r),
         };
     });
@@ -41,6 +41,7 @@ export function studentsNeedingAttention(data) {
                 id: a.id,
                 attentionId: a.id,
                 name: record?.name ?? nameOfUser(data, a.studentId),
+                email: record?.email ?? '',
                 studentId: record?.studentId ?? '—',
                 program: record?.program ?? students.find((s) => s.userId === a.studentId)?.program ?? '—',
                 issue: 'report_unsatisfactory',
@@ -49,7 +50,14 @@ export function studentsNeedingAttention(data) {
         });
     records
         .filter((r) => !r.advisorId)
-        .forEach((r) => rows.push({ id: `noadv-${r.id}`, name: r.name, studentId: r.studentId, program: r.program, issue: 'missing_advisor' }));
+       .forEach((r) => rows.push({
+    id: `noadv-${r.id}`,
+    name: r.name,
+    email: r.email,
+    studentId: r.studentId,
+    program: r.program,
+    issue: 'missing_advisor'
+}));
     return rows;
 }
 
