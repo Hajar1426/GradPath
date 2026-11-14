@@ -104,6 +104,46 @@ New data collections are added in `src/data/index.js`. Read and write them with 
 - `main` only receives tested work from `development`.
 - Keep pull requests small and describe what changed and how to test it.
 
+## Coordinator portal (Member 4)
+
+Sign in as **coordinator@kfupm.edu.sa** to make changes. Sign in as **dean@kfupm.edu.sa** or **chairperson@kfupm.edu.sa** to see the same pages in view-only mode: every button that changes something is hidden. The pages follow the coordinator screens in the team's Figma file.
+
+### Pages
+
+| Sidebar link | Route | What the coordinator can do |
+| --- | --- | --- |
+| Home Page | `/coordinator` | Summary cards, quick actions, students needing attention (with *Email student*), latest announcements, Excel downloads and key dates. Each card shows its own error if its data cannot load (try `/coordinator?demoError=advisor`). |
+| Statistics | `/coordinator/statistics` | Filter by term, program and study load. Charts for students by program, GradPath sign-up rate and advisor load. Attention table, exception report and *Export Report* (.xlsx). |
+| Courses & Schedule | `/coordinator/offerings` | Three tabs. **Offerings**: create, edit, save as draft, publish, archive and restore, with warnings (0 seats, missing times, instructor clash, duplicates). **Authorization requests** (`?tab=requests`): approve or reject with a note; the student is notified. **Schedule** (`?tab=schedule`): weekly timetable coloured by course area, with a warning for time clashes. *Export Schedule* (.xlsx). |
+| | `/coordinator/offerings/:id` | Offering editor (`/coordinator/offerings/new` for a new one). |
+| CCM Faculty | `/coordinator/capacity` | Advisor cards with advisee slots. *Edit slots* sets each advisor's capacity. *Read More* shows details, where the coordinator can override availability with a reason or remove the override. All overrides are kept in the override history. |
+| Students | `/coordinator/students` | The approved student list. Search, and filter by degree, study load, account, advisor and "not in latest sheet". Download as CSV. |
+| Import | `/coordinator/import` | Import the approved student list or the course offerings from Excel: choose the kind, upload, check the preview (new, updated, duplicate, invalid), confirm. Import history and a result page (`/coordinator/import/result`). |
+| Course Resources | `/coordinator/resources` | Upload a file or add a link, then publish or archive. Students see published resources at `/student/resources`. |
+| Announcements | `/coordinator/announcements` | Write an announcement with a category (General, Deadline, Meeting, Policy) and an audience, preview it, publish (the audience gets a notification) or archive. Every role reads its own announcements at `/announcements`. |
+
+### Rules
+
+- **Advisor capacity.** Each advisor has their own number of advisee slots (`capacity` in `src/data/advisors.js`, 5 if missing). Only the coordinator can change it, and never below the advisor's current number of advisees.
+- **Availability** is worked out in `src/utils/computeAvailability.js` from the share of slots used: under 75% is **Available**, 75% or more is **Limited**, and 100% is **Unavailable**. A coordinator override always wins until it is removed. The student advisor directory (Member 2) uses the same function, so both sides always show the same result.
+- **Student import.** Rows are matched by email. A re-upload never resets whether a student has an account, and students missing from a new sheet are flagged, not deleted.
+- **Authorizations.** A decision only records approval or rejection. It never registers the student or changes a seat.
+
+### Try it
+
+1. **Capacity:** open *CCM Faculty*. Dr. Huda Alsaleh has 4 advisees. Click *Edit slots* and change her capacity to 7: she turns from Limited to **Available** (4/7). Try 3: it is refused because she already has 4 advisees.
+2. **Override:** click *Read More* on Dr. Yahya Osais, set *Unavailable* with a reason, then remove it. Both steps appear in the override history.
+3. **Import:** open *Import*, keep *Approved student list*, download the sample file from the link on the page and upload it. The preview shows new, updated, duplicate and invalid rows. Confirm, then open *Students* to see the result. The offerings sample works the same way.
+4. **Authorization:** in *Courses & Schedule → Authorization requests*, approve a request, then sign in as the student and open *Notifications*.
+5. **Announcement:** publish one for students. Sign in as the student: the sidebar shows a number, which clears when *Announcements* is opened.
+6. **View only:** sign in as the dean and open every coordinator page. Nothing can be changed.
+
+### What is simulated in this part
+
+- **Excel files** are read and written in the browser with the `xlsx` package. Nothing is uploaded to a server.
+- **Uploaded resource files** are kept in the browser's local storage, so each file is limited to 1 MB. The demo files are in `public/resources/`, and the sample Excel files are in `public/samples/`.
+- **The term key dates** on the Home Page are a fixed list in `CoordinatorDashboardPage.jsx`.
+
 ## Team
 
 | Member           | Area                                                                                                      |
@@ -112,4 +152,3 @@ New data collections are added in `src/data/index.js`. Read and write them with 
 | Leen AlHelal     | Advisor profiles, advisor directory, advisor portal, annual reports and warning alerts                    |
 | Zainab Aljarrash | Course offerings, degree plan builder, milestones and advisor plan review                                 |
 | Maha AlSubaie    | Coordinator portal, capacity, Excel import, statistics, authorization review, announcements and resources |
-                                                                        
