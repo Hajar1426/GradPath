@@ -1,20 +1,27 @@
 import { AVAILABILITY } from '../data/statusValues';
 
-// Agreed with Member 2: returns AVAILABILITY.AVAILABLE, LIMITED or UNAVAILABLE.
-// A coordinator override always wins. Otherwise: fewer than 4 students is green, exactly 4 is yellow, more is red.
 export const LIMITED_AT = 4;
-// An advisor has this many advisee slots. Full (red) when all are used.
+// Default number of advisee slots, used when an advisor has no valid capacity.
 export const ADVISEE_SLOTS = LIMITED_AT + 1;
 
-export function computeAutoAvailability(assignedCount) {
-    if (assignedCount < LIMITED_AT) return AVAILABILITY.AVAILABLE;
-    if (assignedCount === LIMITED_AT) return AVAILABILITY.LIMITED;
-    return AVAILABILITY.UNAVAILABLE;
+// An advisor's capacity. Missing or invalid values (null, '', 0, 'abc') use the default.
+export function capacityOf(advisor) {
+    const n = Number(advisor?.capacity);
+    return Number.isInteger(n) && n >= 1 ? n : ADVISEE_SLOTS;
 }
 
+// Full when every slot is used, Limited when one slot is left, otherwise Available.
+export function computeAutoAvailability(assignedCount, capacity = ADVISEE_SLOTS) {
+    if (assignedCount >= capacity) return AVAILABILITY.UNAVAILABLE;
+    if (assignedCount >= Math.max(1, capacity - 1)) return AVAILABILITY.LIMITED;
+    return AVAILABILITY.AVAILABLE;
+}
+
+// Shared with Member 2 (advisor directory). Keep the two inputs agreed in the team guide.
+// A coordinator override always wins.
 export function computeAvailability(advisor, assignedCount) {
     if (advisor?.coordinatorOverride) return advisor.coordinatorOverride.value;
-    return computeAutoAvailability(assignedCount);
+    return computeAutoAvailability(assignedCount, capacityOf(advisor));
 }
 
 // Written label to show next to the color (color is never the only signal).
