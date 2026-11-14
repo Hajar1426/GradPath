@@ -18,7 +18,7 @@ export const courses = [
     credits: 3,
     area: null,
     prerequisites: [],
-    prerequisiteText: 'Graduate Standing',
+    prerequisiteText: 'STAT 319 or equivalent',
     categories: [],
   },
   {
@@ -44,8 +44,8 @@ export const courses = [
     title: 'Graduate Seminar',
     credits: 0,
     area: null,
-    prerequisites: [],
-    prerequisiteText: 'Graduate Standing',
+    prerequisites: ['ICS 500'],
+    prerequisiteText: 'ICS 500',
     categories: [],
   },
   {
@@ -54,7 +54,7 @@ export const courses = [
     credits: 6,
     area: null,
     prerequisites: ['ICS 599'],
-    prerequisiteText: 'ICS 599 or Consent of Instructor',
+    prerequisiteText: 'ICS 599',
     categories: [],
   },
 
@@ -461,8 +461,8 @@ export const courses = [
     title: 'Security in Wireless Networks',
     credits: 3,
     area: 'C',
-    prerequisites: ['SEC 511'],
-    prerequisiteText: 'SEC 511',
+    prerequisites: ['SEC 521'],
+    prerequisiteText: 'SEC 521',
     categories: ['security_elective'],
   },
   {
@@ -479,8 +479,8 @@ export const courses = [
     title: 'Database Security',
     credits: 3,
     area: 'C',
-    prerequisites: [],
-    prerequisiteText: '',
+    prerequisites: ['SEC 511'],
+    prerequisiteText: 'SEC 511',
     categories: [],
   },
   {
