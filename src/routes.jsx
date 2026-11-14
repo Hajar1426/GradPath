@@ -34,12 +34,15 @@ import AnnouncementEditorPage from './pages/coordinator/AnnouncementEditorPage';
 import ResourcesManagePage from './pages/coordinator/ResourcesManagePage';
 import AnnouncementsPage from './pages/common/AnnouncementsPage';
 import CourseResourcesPage from './pages/student/CourseResourcesPage';
+import AdvisorDirectoryPage from './pages/student/AdvisorDirectoryPage';
+
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
 // Finished pages: each member adds a line  '/path': PageComponent
 const PAGES = {
-    // '/student/advisors': AdvisorDirectoryPage,
+    // Member 2
+    '/student/advisors': AdvisorDirectoryPage,
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,
