@@ -1,6 +1,6 @@
 import { ALERT_STATUS, AUTHORIZATION_STATUS, PUBLISH_STATUS } from '../data/statusValues';
 import { DEGREE_LABEL, STUDY_LOAD_LABEL, getStudyLoad } from './studyRules';
-import { ADVISEE_SLOTS, AVAILABILITY_LABEL, LIMITED_AT, computeAvailability, countAssigned } from './computeAvailability';
+import { AVAILABILITY_LABEL, capacityOf, computeAvailability, countAssigned } from './computeAvailability';
 import { nameOfUser } from './coordinatorHelpers';
 import { formatDate } from './formatDate';
 
@@ -50,22 +50,23 @@ export function studentsNeedingAttention(data) {
         });
     records
         .filter((r) => !r.advisorId)
-       .forEach((r) => rows.push({
-    id: `noadv-${r.id}`,
-    name: r.name,
-    email: r.email,
-    studentId: r.studentId,
-    program: r.program,
-    issue: 'missing_advisor'
-}));
+        .forEach((r) => rows.push({
+            id: `noadv-${r.id}`,
+            name: r.name,
+            email: r.email,
+            studentId: r.studentId,
+            program: r.program,
+            issue: 'missing_advisor'
+        }));
     return rows;
 }
 
 export function capacityRows(data) {
     return arr(data.advisors).map((a) => {
         const count = countAssigned(arr(data.students), a.id);
+        const capacity = capacityOf(a);
         const value = computeAvailability(a, count);
-        return { ...a, count, value, label: AVAILABILITY_LABEL[value], slots: `${count}/${ADVISEE_SLOTS}` };
+        return { ...a, count, capacity, value, label: AVAILABILITY_LABEL[value], slots: `${count}/${capacity}` };
     });
 }
 
@@ -82,9 +83,9 @@ export function buildExceptions(data, filters = {}, now = Date.now()) {
             if (!r.advisorId) out.push({ id: `noadv-${r.id}`, area: 'Students', item: r.name, detail: 'No advisor assigned' });
         });
     capacityRows(data)
-        .filter((a) => a.count > LIMITED_AT && !a.coordinatorOverride)
-        .forEach((a) => out.push({ id: `cap-${a.id}`, area: 'Capacity', item: a.name, detail: `${a.count} advisees, all ${ADVISEE_SLOTS} slots used or more` }));
-    arr(data.courseAuthorizations)
+        .filter((a) => a.count >= a.capacity && !a.coordinatorOverride)
+        .forEach((a) => out.push({ id: `cap-${a.id}`, area: 'Capacity', item: a.name, detail: `${a.count} advisees, all ${a.capacity} slots used or more` }));
+        arr(data.courseAuthorizations)
         .filter(termOk)
         .filter((r) => r.status === AUTHORIZATION_STATUS.PENDING && now - new Date(r.requestedAt).getTime() > 3 * DAY)
         .forEach((r) => out.push({ id: `auth-${r.id}`, area: 'Authorizations', item: `${r.courseCode} (${nameOfUser(data, r.studentId)})`, detail: `Pending since ${formatDate(r.requestedAt)}` }));
