@@ -44,8 +44,8 @@ export default function EditAdvisorCapacityDialog({ advisor, onSave, onClose }) 
             }
         >
             <p style={{ marginTop: 0 }}>
-                Currently assigned: <strong>{advisor.count}</strong> advisees. When every slot is used, students see this
-                advisor as Unavailable. When one slot is left, they see Limited availability.
+                Currently assigned: <strong>{advisor.count}</strong> advisees.When 75% of the slots are used,
+                students see Limited availability. When every slot is used, they see Unavailable.
             </p>
             <Input
                 label="Maximum advisee slots"

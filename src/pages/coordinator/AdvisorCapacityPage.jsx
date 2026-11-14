@@ -114,7 +114,7 @@ export default function AdvisorCapacityPage() {
             <div className="panel">
                 <PageHeader
                     title="CCM Faculty"
-                    subtitle={`Advisors and their advisee slots. Students see an advisor as Available, Limited when one slot is left, or Unavailable when every slot is used. New advisors start with ${ADVISEE_SLOTS} slots. An override always wins until it is removed.`}
+                    subtitle={`Students see an advisor as Available, Limited when 75% of the slots are used, or Unavailable when every slot is used.`}
                 />
                 <div className="filters">
                     <SearchBar value={query} onChange={setQuery} placeholder="Search by name, department or research area" label="Search advisors" />
