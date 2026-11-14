@@ -14,6 +14,7 @@ import { ALERT_STATUS, REPORT_RATING, REPORT_STATUS } from '../../data/statusVal
 import { formatDate, formatDateTime } from '../../utils/formatDate';
 import { findMyAdvisor } from '../../utils/advisorHelpers';
 import { newId } from '../../utils/coordinatorHelpers';
+import { todayIso } from '../../utils/dateHelpers';
 
 // The questions the student answered, in the order they are shown.
 const QUESTIONS = [
@@ -31,12 +32,6 @@ const RATINGS = [
 ];
 
 const COMMENTS_MIN = 20;
-
-// 'YYYY-MM-DD' for today in local time (the format attentionItems uses).
-function todayIso() {
-    const now = new Date();
-    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-}
 
 // One annual report: read the student's answers and evaluate it.
 export default function AdvisorReportReviewPage() {

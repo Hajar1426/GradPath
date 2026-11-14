@@ -7,28 +7,10 @@ import { useAuth } from '../../hooks/useAuth';
 import { useData } from '../../hooks/useData';
 import { useAnnouncementCount } from '../../hooks/useAnnouncementCount';
 import { ALERT_STATUS, PUBLISH_STATUS, REPORT_STATUS, ROLES } from '../../data/statusValues';
-import { academicCalendar } from '../../data/academicCalendar';
+import CalendarCard from '../../components/advising/CalendarCard';
+import { CURRENT_TERM } from '../../utils/advisorHelpers';
+import { greeting } from '../../utils/dateHelpers';
 import { DAYS } from '../../utils/schedule';
-
-// The term shown in the teaching schedule. Change this when a new term starts.
-const CURRENT_TERM = '261';
-
-// "Good morning" before 12:00, "Good afternoon" before 17:00, otherwise "Good evening".
-function greeting(now) {
-    const hour = now.getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 17) return 'Good afternoon';
-    return 'Good evening';
-}
-
-// '2026-11-20' -> { day: '20', month: 'Nov 2026' } for the calendar list.
-function splitDate(isoDate) {
-    const date = new Date(`${isoDate}T00:00:00`);
-    return {
-        day: String(date.getDate()).padStart(2, '0'),
-        month: date.toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }),
-    };
-}
 
 // Advisor home page (Figma: "Advisor view - Home Page").
 export default function AdvisorHomePage() {
@@ -54,8 +36,6 @@ export default function AdvisorHomePage() {
 
     const now = new Date();
     const todayKey = now.toLocaleDateString('en-US', { weekday: 'short' }); // 'Sun', 'Mon', ...
-    // Today as 'YYYY-MM-DD' in local time, so it can be compared with the calendar dates.
-    const todayIso = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
     // Numbers for the four overview tiles.
     const myStudents = (data.students ?? []).filter((s) => s.advisorId === advisor.id);
@@ -68,12 +48,6 @@ export default function AdvisorHomePage() {
     );
     const todaysClasses = myOfferings.filter((o) => (o.days ?? '').split(/\s+/).includes(todayKey));
     const isTeachingDay = DAYS.some((d) => d.key === todayKey);
-
-    // Upcoming dates for advisors, nearest first, at most five.
-    const upcoming = academicCalendar
-        .filter((item) => item.audience.includes(ROLES.ADVISOR) && item.date >= todayIso)
-        .sort((a, b) => a.date.localeCompare(b.date))
-        .slice(0, 5);
 
     const tiles = [
         {
@@ -156,31 +130,7 @@ export default function AdvisorHomePage() {
                         </div>
                     </section>
 
-                    <section className="panel advisor-card" aria-labelledby="calendar-title">
-                        <div className="advisor-card__header">
-                            <h2 className="advisor-card__name" id="calendar-title">Academic Calendar</h2>
-                        </div>
-                        <div className="advisor-card__body">
-                            {upcoming.length ? (
-                                <ul className="calendar-list">
-                                    {upcoming.map((item) => {
-                                        const { day, month } = splitDate(item.date);
-                                        return (
-                                            <li key={item.id} className="calendar-list__item">
-                                                <span className="calendar-list__date">
-                                                    <span className="calendar-list__day">{day}</span>
-                                                    <span className="calendar-list__month">{month}</span>
-                                                </span>
-                                                <span>{item.title}</span>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            ) : (
-                                <p className="hint">No upcoming dates.</p>
-                            )}
-                        </div>
-                    </section>
+                    <CalendarCard role={ROLES.ADVISOR} />
                 </aside>
             </div>
         </main>
