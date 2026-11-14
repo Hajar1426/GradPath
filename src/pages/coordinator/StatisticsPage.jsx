@@ -12,7 +12,6 @@ import { useData } from '../../hooks/useData';
 import { useToast } from '../../hooks/useToast';
 import { ALERT_STATUS, AUTHORIZATION_STATUS, DEGREE, STUDY_LOAD } from '../../data/statusValues';
 import { DEGREE_LABEL, STUDY_LOAD_LABEL } from '../../utils/studyRules';
-import { ADVISEE_SLOTS } from '../../utils/computeAvailability';
 import { ISSUE_LABEL, buildExceptions, capacityRows, capacitySheet, studentRecords, studentsNeedingAttention } from '../../utils/coordinatorReports';
 import { STUDY_LOAD_OPTIONS } from '../../utils/coordinatorHelpers';
 import { downloadXlsx } from '../../utils/downloadXlsx';
@@ -53,11 +52,13 @@ export default function StatisticsPage() {
         }),
     );
     const advisorLoad = capacityRows(data).map((a) => ({
-        label: a.name,
-        value: a.count,
-        tone: a.count >= ADVISEE_SLOTS ? 'full' : undefined,
-        text: a.count >= ADVISEE_SLOTS ? `Full (${a.count})` : String(a.count),
-    }));
+    label: a.name,
+    value: a.count,
+    capacity: a.capacity,
+    tone: a.count >= a.capacity ? 'full' : undefined,
+    text: `${a.count}/${a.capacity}`,
+}));
+const loadMax = Math.max(1, ...advisorLoad.map((a) => Math.max(a.capacity, a.value)));
 
     const cards = [
         {
@@ -156,8 +157,8 @@ export default function StatisticsPage() {
 
             <section className="panel" aria-labelledby="chart-load">
                 <h2 className="chart-title" id="chart-load">Advisor load</h2>
-                <p className="hint" style={{ marginTop: 0 }}>Advisees out of {ADVISEE_SLOTS} slots. Red bars are full.</p>
-                {advisorLoad.length ? <BarChart title="Advisor load" data={advisorLoad} max={ADVISEE_SLOTS} /> : <EmptyState title="No advisors" />}
+               <p className="hint" style={{ marginTop: 0 }}>Assigned advisees compared with each advisor's capacity. Red bars are full.</p>
+{advisorLoad.length ? <BarChart title="Advisor load" data={advisorLoad} max={loadMax} /> : <EmptyState title="No advisors" />}
             </section>
 
             <section className="panel" aria-labelledby="attention-title">

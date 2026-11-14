@@ -44,7 +44,7 @@ import AdvisorStudentDetailPage from './pages/advisor/AdvisorStudentDetailPage';
 import AdvisorReportsPage from './pages/advisor/AdvisorReportsPage';
 import AdvisorReportReviewPage from './pages/advisor/AdvisorReportReviewPage';
 import AdvisorAlertsPage from './pages/advisor/AdvisorAlertsPage';
-
+import DegreePlanBuilderPage from './pages/student/DegreePlanBuilderPage';
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
 // Finished pages: each member adds a line  '/path': PageComponent
@@ -70,6 +70,7 @@ const PAGES = {
     '/coordinator/announcements': AnnouncementsManagePage,
     '/coordinator/resources': ResourcesManagePage,
     '/student/resources': CourseResourcesPage,
+    '/student/plan': DegreePlanBuilderPage,
 };
 
 // Pages that are not in the sidebar (details pages), per role

@@ -1,0 +1,593 @@
+/* =========================================================
+   DEGREE PLAN PAGE
+   ========================================================= */
+
+.plan-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   DEGREE REQUIREMENTS
+   ========================================================= */
+
+.plan-checklist {
+    margin-top: 1.5rem;
+}
+
+.plan-checklist__heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.plan-checklist__heading h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.plan-checklist__heading p {
+    margin: 0.3rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+}
+
+
+/* =========================================================
+   REQUIREMENT LEGEND
+   ========================================================= */
+
+.plan-checklist__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+}
+
+.plan-checklist__legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.plan-checklist__dot {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+}
+
+.plan-checklist__dot--met {
+    background: var(--color-primary);
+}
+
+.plan-checklist__dot--attention {
+    background: var(--color-warning);
+}
+
+.plan-checklist__dot--pending {
+    background: var(--color-muted);
+}
+
+
+/* =========================================================
+   REQUIREMENT CARD GRID
+   ========================================================= */
+
+.plan-checklist__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   REQUIREMENT CARDS
+   ========================================================= */
+
+.plan-rule-card {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+}
+
+.plan-rule-card--met {
+    border-color: var(--color-primary);
+    background: var(--color-success-bg);
+}
+
+.plan-rule-card--attention {
+    border-color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+
+.plan-rule-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.plan-rule-card__top h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   REQUIREMENT STATE LABEL
+   ========================================================= */
+
+.plan-rule-card__state {
+    flex-shrink: 0;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.plan-rule-card__state--pending {
+    background: var(--color-bg);
+    color: var(--color-muted);
+}
+
+.plan-rule-card__state--met {
+    background: var(--color-primary);
+    color: var(--color-surface);
+}
+
+.plan-rule-card__state--attention {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+
+/* =========================================================
+   REQUIREMENT CARD CONTENT
+   ========================================================= */
+
+.plan-rule-card__progress {
+    margin: 0.5rem 0 0.85rem;
+    color: var(--color-muted);
+    font-size: 0.8rem;
+}
+
+.plan-rule-card__items {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.plan-rule-card__items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.83rem;
+}
+
+.plan-rule-card__items li.is-met {
+    color: var(--color-text);
+}
+
+.plan-rule-card__check {
+    width: 1rem;
+    flex: 0 0 1rem;
+    font-weight: 600;
+}
+
+.plan-rule-card__items li.is-met .plan-rule-card__check {
+    color: var(--color-primary);
+}
+
+
+/* =========================================================
+   DEGREE TIMELINE
+   ========================================================= */
+
+.plan-board {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.plan-board__heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.plan-board__heading h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.plan-board__heading p {
+    margin: 0.2rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+}
+
+.plan-board__scroll-hint {
+    flex-shrink: 0;
+    color: var(--color-muted);
+    font-size: 0.7rem;
+}
+
+
+/* =========================================================
+   HORIZONTAL TERM LIST
+   ========================================================= */
+
+.plan-board__scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.45rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.plan-board__scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.plan-board__scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.plan-board__scroll::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--color-border);
+}
+
+.plan-board__terms {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.7rem;
+
+    width: max-content;
+    min-width: 100%;
+}
+
+
+/* =========================================================
+   TERM COLUMN
+   ========================================================= */
+
+.plan-term {
+    display: flex;
+    flex: 0 0 235px;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    min-width: 0;
+    min-height: 280px;
+    padding: 0.65rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+
+    background: var(--color-surface);
+}
+
+.plan-term--historical {
+    background: #f8f7f3;
+}
+
+
+/* =========================================================
+   TERM HEADER
+   ========================================================= */
+
+.plan-term__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08rem;
+
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.05rem;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.plan-term__info h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.plan-term__info p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.64rem;
+}
+
+.plan-term__count {
+    margin-top: 0.2rem;
+    color: var(--color-muted);
+    font-size: 0.62rem;
+}
+
+
+/* =========================================================
+   COURSES INSIDE A TERM
+   ========================================================= */
+
+.plan-term__courses {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+
+/* =========================================================
+   PLANNED COURSE CARD
+   ========================================================= */
+
+.planned-course-card {
+    min-width: 0;
+    padding: 0.5rem 0.55rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+}
+
+.planned-course-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+}
+
+.planned-course-card__top strong {
+    color: var(--color-text);
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+
+.planned-course-card__area {
+    flex-shrink: 0;
+
+    padding: 0.1rem 0.32rem;
+
+    border-radius: 999px;
+    background: #edf6f1;
+
+    color: var(--color-primary);
+    font-size: 0.56rem;
+    font-weight: 600;
+}
+
+.planned-course-card__title {
+    margin: 0.15rem 0 0.3rem;
+
+    color: var(--color-muted);
+    font-size: 0.62rem;
+    line-height: 1.35;
+}
+
+.planned-course-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.35rem;
+
+    color: var(--color-muted);
+    font-size: 0.58rem;
+}
+
+.planned-course-card__history {
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   ADD COURSE SLOT
+   ========================================================= */
+
+.plan-term__add {
+    min-height: 44px;
+    padding: 0.4rem;
+
+    border: 1px dashed var(--color-border);
+    border-radius: 8px;
+
+    background: transparent;
+    color: var(--color-primary);
+
+    cursor: pointer;
+
+    font: inherit;
+    font-size: 0.66rem;
+    font-weight: 500;
+}
+
+.plan-term__add:hover {
+    border-color: var(--color-primary);
+    background: #edf6f1;
+}
+
+.plan-term__add span {
+    margin-right: 0.2rem;
+    font-size: 0.85rem;
+}
+
+.plan-term__empty {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.68rem;
+}
+
+
+/* =========================================================
+   HISTORICAL COURSEWORK NOTE
+   ========================================================= */
+
+.plan-board__history-note {
+    margin: 0;
+
+    color: var(--color-muted);
+    font-size: 0.65rem;
+    line-height: 1.45;
+}
+/* =========================================================
+   COURSE CARD ACTIONS
+   ========================================================= */
+
+.planned-course-card__actions {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+
+    padding-top: 0.35rem;
+    margin-top: 0.35rem;
+
+    border-top: 1px solid var(--color-border);
+}
+
+.planned-course-card__actions-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    padding: 0.25rem 0.45rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+
+    background: var(--color-surface);
+    color: var(--color-muted);
+
+    cursor: pointer;
+
+    font: inherit;
+    font-size: 0.58rem;
+    font-weight: 500;
+}
+
+.planned-course-card__actions-button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+
+/* Dropdown */
+
+.planned-course-card__menu {
+    position: absolute;
+    z-index: 20;
+
+    top: calc(100% + 0.3rem);
+    right: 0;
+
+    width: 150px;
+    padding: 0.35rem;
+
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+
+    background: var(--color-surface);
+
+    box-shadow: 0 8px 20px rgb(20 40 47 / 10%);
+}
+
+.planned-course-card__menu-label {
+    margin: 0;
+    padding: 0.3rem 0.45rem;
+
+    color: var(--color-muted);
+
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.planned-course-card__menu button {
+    display: block;
+    width: 100%;
+
+    padding: 0.4rem 0.45rem;
+
+    border: 0;
+    border-radius: 5px;
+
+    background: transparent;
+    color: var(--color-text);
+
+    cursor: pointer;
+    text-align: left;
+
+    font: inherit;
+    font-size: 0.62rem;
+}
+
+.planned-course-card__menu button:hover {
+    background: var(--color-bg);
+}
+
+.planned-course-card__menu-divider {
+    height: 1px;
+    margin: 0.25rem 0;
+
+    background: var(--color-border);
+}
+
+.planned-course-card__menu .planned-course-card__remove {
+    color: var(--color-danger);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+    .plan-page__header {
+        flex-direction: column;
+    }
+
+    .plan-checklist__heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .plan-checklist__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .plan-board__heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .plan-board__scroll-hint {
+        display: none;
+    }
+
+    .plan-term {
+        flex-basis: 215px;
+    }
+}

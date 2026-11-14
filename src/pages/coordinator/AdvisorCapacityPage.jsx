@@ -9,6 +9,7 @@ import Select from '../../components/common/Select';
 import ConfirmationDialog from '../../components/common/ConfirmationDialog';
 import AvailabilityBadge from '../../components/coordinator/AvailabilityBadge';
 import AvailabilityOverrideDialog from '../../components/coordinator/AvailabilityOverrideDialog';
+import EditAdvisorCapacityDialog from '../../components/coordinator/EditAdvisorCapacityDialog';
 import { MailIcon, PeopleIcon, PersonIcon, PinIcon } from '../../components/coordinator/Icons';
 import { useAuth } from '../../hooks/useAuth';
 import { useData } from '../../hooks/useData';
@@ -18,7 +19,7 @@ import { AVAILABILITY } from '../../data/statusValues';
 import {
     ADVISEE_SLOTS,
     AVAILABILITY_LABEL,
-    LIMITED_AT,
+    capacityOf,
     computeAutoAvailability,
     computeAvailability,
     countAssigned,
@@ -43,15 +44,16 @@ export default function AdvisorCapacityPage() {
     const [openId, setOpenId] = useState(null);
     const [editing, setEditing] = useState(null);
     const [removing, setRemoving] = useState(null);
-
+    const [editingCapacity, setEditingCapacity] = useState(null);
     const advisors = data.advisors ?? [];
     const students = data.students ?? [];
     const history = data.capacityOverrides ?? [];
 
     const all = advisors.map((a) => {
-        const count = countAssigned(students, a.id);
-        return { ...a, count, auto: computeAutoAvailability(count), effective: computeAvailability(a, count) };
-    });
+    const count = countAssigned(students, a.id);
+    const capacity = capacityOf(a);
+    return { ...a, count, capacity, auto: computeAutoAvailability(count, capacity), effective: computeAvailability(a, count) };
+});
     const rows = all
         .filter((a) => filter === 'all' || a.effective === filter)
         .filter((a) => matchesSearch(query, a.name, a.department, a.email, (a.researchAreas ?? []).join(' ')));
@@ -83,6 +85,19 @@ export default function AdvisorCapacityPage() {
         showToast(`Override removed. ${advisor.name} is back to automatic availability.`);
         setRemoving(null);
     }
+    function saveCapacity({ capacity }) {
+        const advisor = editingCapacity;
+        updateCollection('advisors', (list) => list.map((a) => (a.id === advisor.id ? { ...a, capacity } : a)));
+        addAuditEvent({
+            userId: advisor.userId ?? null,
+            actorId: currentUser.id,
+            action: 'advisor_capacity_updated',
+            detail: `${advisor.name}: ${advisor.capacity} → ${capacity} slots`,
+        });
+        notifyAdvisor(advisor, `The coordinator changed your maximum number of advisees from ${advisor.capacity} to ${capacity}.`);
+        showToast(`${advisor.name} now has ${capacity} advisee slots.`);
+        setEditingCapacity(null);
+    }
 
     const advisorName = (id) => advisors.find((a) => a.id === id)?.name ?? id;
     const historyColumns = [
@@ -99,7 +114,7 @@ export default function AdvisorCapacityPage() {
             <div className="panel">
                 <PageHeader
                     title="CCM Faculty"
-                    subtitle={`Advisors and their advisee slots. Each advisor has ${ADVISEE_SLOTS} slots: fewer than ${LIMITED_AT} used is Available, ${LIMITED_AT} is Limited, all ${ADVISEE_SLOTS} is Unavailable. An override always wins until it is removed.`}
+                    subtitle={`Students see an advisor as Available, Limited when 75% of the slots are used, or Unavailable when every slot is used.`}
                 />
                 <div className="filters">
                     <SearchBar value={query} onChange={setQuery} placeholder="Search by name, department or research area" label="Search advisors" />
@@ -129,17 +144,26 @@ export default function AdvisorCapacityPage() {
                             <p className="faculty-card__line">
                                 <PeopleIcon /> <strong>Advisee slots:</strong>
                                 <span className={`slot-pill slot-pill--${TONE[a.effective]}`}>
-                                    {a.count}/{ADVISEE_SLOTS}
+                                    {a.count}/{a.capacity}
                                 </span>
                             </p>
                             <p className="faculty-card__status">
                                 {AVAILABILITY_LABEL[a.effective]}
                                 {a.coordinatorOverride ? ' · set by coordinator' : ''}
                             </p>
-                            <Button className="btn--small" onClick={() => setOpenId(a.id)} aria-label={`Read more about ${a.name}`}>
-                                Read More
-                            </Button>
+                                 
+                            <div className="table__actions">
+                                <Button className="btn--small" onClick={() => setOpenId(a.id)} aria-label={`Read more about ${a.name}`}>
+                                    Read More
+                                </Button>
+                                {!readOnly && (
+                                    <Button variant="ghost" className="btn--small" onClick={() => setEditingCapacity(a)} aria-label={`Edit advisee slots for ${a.name}`}>
+                                        Edit slots
+                                    </Button>
+                                )}
+                            </div>
                         </li>
+                
                     ))}
                 </ul>
             )}
@@ -178,7 +202,7 @@ export default function AdvisorCapacityPage() {
                             <dt>Office</dt><dd>{open.office ?? 'Not set'}</dd>
                             <dt>Email</dt><dd><a href={`mailto:${open.email}`}>{open.email}</a></dd>
                             <dt>Research areas</dt><dd>{(open.researchAreas ?? []).join(', ') || 'Not set'}</dd>
-                            <dt>Advisees</dt><dd>{open.count} of {ADVISEE_SLOTS} slots</dd>
+                            <dt>Advisees</dt><dd>{open.count} of {open.capacity} slots</dd>
                             <dt>Automatic</dt><dd><AvailabilityBadge value={open.auto} /></dd>
                             <dt>Override</dt>
                             <dd>
@@ -197,6 +221,15 @@ export default function AdvisorCapacityPage() {
                     </>
                 )}
             </Modal>
+
+            {!readOnly && editingCapacity && (
+            <EditAdvisorCapacityDialog
+            key={editingCapacity.id}
+            advisor={editingCapacity}
+            onSave={saveCapacity}
+            onClose={() => setEditingCapacity(null)}
+        />
+        )}
 
             {!readOnly && editing && (
                 <AvailabilityOverrideDialog key={editing.id} advisor={editing} autoValue={editing.auto} onSave={saveOverride} onClose={() => setEditing(null)} />
