@@ -1,23 +1,36 @@
+
 import { AVAILABILITY } from '../data/statusValues';
 
-// Agreed with Member 2: returns AVAILABILITY.AVAILABLE, LIMITED or UNAVAILABLE.
-// A coordinator override always wins. Otherwise: fewer than 4 students is green, exactly 4 is yellow, more is red.
-export const LIMITED_AT = 4;
-// An advisor has this many advisee slots. Full (red) when all are used.
-export const ADVISEE_SLOTS = LIMITED_AT + 1;
+// Default number of advisee slots.
+export const ADVISEE_SLOTS = 5;
 
-export function computeAutoAvailability(assignedCount) {
-    if (assignedCount < LIMITED_AT) return AVAILABILITY.AVAILABLE;
-    if (assignedCount === LIMITED_AT) return AVAILABILITY.LIMITED;
-    return AVAILABILITY.UNAVAILABLE;
+// An advisor's capacity. Missing or invalid values use the default.
+export function capacityOf(advisor) {
+    const n = Number(advisor?.capacity);
+    return Number.isInteger(n) && n >= 1 ? n : ADVISEE_SLOTS;
 }
 
+// Limited from 75% of capacity, Unavailable at 100%.
+export function computeAutoAvailability(assignedCount, capacity = ADVISEE_SLOTS) {
+    const ratio = assignedCount / capacity;
+
+    if (ratio >= 1) return AVAILABILITY.UNAVAILABLE;
+    if (ratio >= 0.75) return AVAILABILITY.LIMITED;
+
+    return AVAILABILITY.AVAILABLE;
+}
+
+// Shared with Member 2 (advisor directory).
+// A coordinator override always wins.
 export function computeAvailability(advisor, assignedCount) {
-    if (advisor?.coordinatorOverride) return advisor.coordinatorOverride.value;
-    return computeAutoAvailability(assignedCount);
+    if (advisor?.coordinatorOverride) {
+        return advisor.coordinatorOverride.value;
+    }
+
+    return computeAutoAvailability(assignedCount, capacityOf(advisor));
 }
 
-// Written label to show next to the color (color is never the only signal).
+// Written label to show next to the color.
 export const AVAILABILITY_LABEL = {
     [AVAILABILITY.AVAILABLE]: 'Available',
     [AVAILABILITY.LIMITED]: 'Limited availability',
@@ -26,5 +39,7 @@ export const AVAILABILITY_LABEL = {
 
 // How many students each advisor has, from data.students ({ userId, advisorId }).
 export function countAssigned(students, advisorId) {
-    return (students ?? []).filter((s) => s.advisorId === advisorId).length;
+    return (students ?? []).filter(
+        (s) => s.advisorId === advisorId
+    ).length;
 }
