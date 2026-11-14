@@ -286,6 +286,41 @@ Sign in as **coordinator@kfupm.edu.sa** to make changes. Sign in as **dean@kfupm
 - **Uploaded resource files** are kept in the browser's local storage, so each file is limited to 1 MB. The demo files are in `public/resources/`, and the sample Excel files are in `public/samples/`.
 - **The term key dates** on the Home Page are a fixed list in `CoordinatorDashboardPage.jsx`.
 
+## Administrator portal and shared interface (Member 1)
+
+Sign in as **admin@kfupm.edu.sa**. The sidebar of every role is built from the same layout, so the user name sits under the logo, the links have icons, **Sign out** is right under the last link, and **Notifications** and **Announcements** show a number when there is something new.
+
+### Pages
+
+| Sidebar link | Route | What the administrator can do |
+| --- | --- | --- |
+| Dashboard | `/admin` | Counts of all, active, pending and disabled accounts (each count opens Users with that filter), how many approved students have an account, and the latest audit events. |
+| Users | `/admin/users` | Search and filter accounts by role and status. For each account: change role, disable or enable, send a password reset link, and resend the activation email. A "What each role can do" list helps choose the right role. |
+| (Add user) | `/admin/users/new` | Create an account. Choose the role first. A student must be on the approved student list and their name comes from it. |
+| Audit | `/admin/audit` | Who did what, to whom and when, in plain words. Events for the whole system show "Whole system". |
+| Security | `/admin/security` | Set the idle session timeout (a whole number of minutes from 1 to 120). It is enforced for every signed-in user. |
+| Notifications, Settings | `/notifications`, `/settings` | Shared by every role. Settings shows name, email and role as read-only, and lets the user change their password and notification preferences. |
+
+### Rules
+
+- Students create their own account only if their email is on the approved list (**Trying the sign-up flow** above). All other roles are created by the administrator.
+- Sign in, sign up and forgot password all require an email ending in `@kfupm.edu.sa`.
+- Disabled accounts cannot sign in. Their records and history are kept.
+- Changes to accounts and security settings are written to the audit log (`addAuditEvent`, readable names in `src/utils/auditLabels.js`).
+
+### Try it
+
+- **Add user:** Users → Add user. Choose Student and type `omar.alqahtani@kfupm.edu.sa`: the name fills in from the approved list.
+- **Reset link:** in Users, choose Send reset link, open the demo link, and set a new password.
+- **Timeout:** in Security, set 1 minute, stay idle, and the next action returns to Sign in with a notice.
+- **Audit:** do any of the actions above and open Audit.
+
+### What is simulated in this part
+
+- Activation and reset emails are shown on screen as demo links.
+- Passwords are stored as plain text in the browser, only acceptable for a demo.
+- Each browser has its own copy of the data. Use **Settings → Reset demo data** to start again.
+
 ## Team
 
 | Member           | Area                                                                                                      |
