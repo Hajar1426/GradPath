@@ -16,19 +16,35 @@ export const ISSUE_LABEL = {
 export function studentRecords(data) {
     const users = arr(data.users);
     const students = arr(data.students);
+
     return arr(data.studentRoster).map((r) => {
-        const user = users.find((u) => u.email.toLowerCase() === r.email.toLowerCase());
-        const record = user ? students.find((s) => s.userId === user.id) : null;
+        const email = String(r.email ?? '').trim().toLowerCase();
+
+        const user = users.find(
+            (u) => String(u.email ?? '').trim().toLowerCase() === email
+        );
+
+    // Find the advising record (Member 2's students.js) by email first.
+        const recordByEmail = students.find(
+            (s) => String(s.email ?? '').trim().toLowerCase() === email
+        );
+
+        // Fall back to the existing userId matching method.
+        const record = recordByEmail ?? (
+            user
+                ? students.find((s) => s.userId === user.id)
+                : null
+        );
+
         return {
             ...r,
-            userId: user?.id ?? null,
+            userId: user?.id ?? record?.userId ?? null,
             advisorId: record?.advisorId ?? null,
-            program: record?.program ?? `${DEGREE_LABEL[r.degree] ?? ''} `,
+            program: record?.program ?? (DEGREE_LABEL[r.degree] ?? ''),
             studyLoad: getStudyLoad(r),
         };
     });
 }
-
 // Students needing attention: open attention items plus approved students without an advisor.
 export function studentsNeedingAttention(data) {
     const records = studentRecords(data);
