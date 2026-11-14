@@ -7,6 +7,13 @@
     --color-muted: #5d6d74;
     --color-border: #e4e1d8;
     --color-danger: #b3261e;
+
+    --color-warning: #b7791f;
+    --color-warning-bg: #fff8e6;
+    --color-success-bg: #edf6f1;
+
+
+
     --radius: 12px;
     --font: 'Poppins', system-ui, sans-serif;
 }

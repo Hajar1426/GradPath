@@ -1,0 +1,214 @@
+/* =========================================================
+   DEGREE PLAN PAGE
+   ========================================================= */
+
+.plan-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   DEGREE REQUIREMENTS
+   ========================================================= */
+
+.plan-checklist {
+    margin-top: 1.5rem;
+}
+
+.plan-checklist__heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.plan-checklist__heading h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.plan-checklist__heading p {
+    margin: 0.3rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.875rem;
+}
+
+
+/* =========================================================
+   LEGEND
+   ========================================================= */
+
+.plan-checklist__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+}
+
+.plan-checklist__legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.plan-checklist__dot {
+    display: inline-block;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+}
+
+.plan-checklist__dot--met {
+    background: var(--color-primary);
+}
+
+.plan-checklist__dot--attention {
+    background: var(--color-warning);
+}
+
+.plan-checklist__dot--pending {
+    background: var(--color-muted);
+}
+
+
+/* =========================================================
+   RULE CARD GRID
+   ========================================================= */
+
+.plan-checklist__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+
+/* =========================================================
+   RULE CARDS
+   ========================================================= */
+
+.plan-rule-card {
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+}
+
+.plan-rule-card--met {
+    border-color: var(--color-primary);
+    background: var(--color-success-bg);
+}
+
+.plan-rule-card--attention {
+    border-color: var(--color-warning);
+    background: var(--color-warning-bg);
+}
+
+.plan-rule-card__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.plan-rule-card__top h3 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   CARD STATE LABEL
+   ========================================================= */
+
+.plan-rule-card__state {
+    flex-shrink: 0;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.plan-rule-card__state--pending {
+    background: var(--color-bg);
+    color: var(--color-muted);
+}
+
+.plan-rule-card__state--met {
+    background: var(--color-primary);
+    color: var(--color-surface);
+}
+
+.plan-rule-card__state--attention {
+    background: var(--color-warning-bg);
+    color: var(--color-warning);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.plan-rule-card__progress {
+    margin: 0.5rem 0 0.85rem;
+    color: var(--color-muted);
+    font-size: 0.8rem;
+}
+
+.plan-rule-card__items {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.plan-rule-card__items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.83rem;
+}
+
+.plan-rule-card__items li.is-met {
+    color: var(--color-text);
+}
+
+.plan-rule-card__check {
+    width: 1rem;
+    flex: 0 0 1rem;
+    font-weight: 600;
+}
+
+.plan-rule-card__items li.is-met .plan-rule-card__check {
+    color: var(--color-primary);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 800px) {
+    .plan-page__header {
+        flex-direction: column;
+    }
+
+    .plan-checklist__heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .plan-checklist__grid {
+        grid-template-columns: 1fr;
+    }
+}
