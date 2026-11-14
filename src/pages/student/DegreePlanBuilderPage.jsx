@@ -29,6 +29,7 @@ export default function DegreePlanBuilderPage() {
     const [terms, setTerms] = useState([]);
     const [selectedTerm, setSelectedTerm] = useState(null);
 
+    // Load the saved plan into a local editable copy.
     useEffect(() => {
         if (plan) {
             setTerms(
@@ -39,6 +40,37 @@ export default function DegreePlanBuilderPage() {
             );
         }
     }, [plan]);
+
+    // Check whether the student changed anything
+    // without saving the draft.
+    const hasUnsavedChanges =
+        Boolean(plan) &&
+        JSON.stringify(terms) !== JSON.stringify(plan.terms);
+
+    // Warn before refreshing, closing the tab,
+    // or leaving the browser page with unsaved changes.
+    useEffect(() => {
+        function handleBeforeUnload(event) {
+            if (!hasUnsavedChanges) {
+                return;
+            }
+
+            event.preventDefault();
+            event.returnValue = '';
+        }
+
+        window.addEventListener(
+            'beforeunload',
+            handleBeforeUnload
+        );
+
+        return () => {
+            window.removeEventListener(
+                'beforeunload',
+                handleBeforeUnload
+            );
+        };
+    }, [hasUnsavedChanges]);
 
     if (!plan) {
         return (
@@ -55,6 +87,7 @@ export default function DegreePlanBuilderPage() {
         );
     }
 
+    // Recalculate requirements whenever the editable plan changes.
     const validation = validatePlan({
         program: plan.program,
         majorArea: plan.majorArea,
@@ -64,16 +97,13 @@ export default function DegreePlanBuilderPage() {
         recommendedCourses: studentInfo?.minCourses,
     });
 
-    const hasUnsavedChanges =
-        JSON.stringify(terms) !== JSON.stringify(plan.terms);
-
     function removeCourse(termCode, courseCode) {
         setTerms((currentTerms) =>
             currentTerms.map((term) =>
                 term.term === termCode
                     ? {
                           ...term,
-                          courses: term.courses.filter(
+                          courses: (term.courses ?? []).filter(
                               (code) => code !== courseCode
                           ),
                       }
@@ -92,7 +122,7 @@ export default function DegreePlanBuilderPage() {
                 if (term.term === fromTermCode) {
                     return {
                         ...term,
-                        courses: term.courses.filter(
+                        courses: (term.courses ?? []).filter(
                             (code) => code !== courseCode
                         ),
                     };
@@ -147,7 +177,9 @@ export default function DegreePlanBuilderPage() {
                           ...item,
                           terms: terms.map((term) => ({
                               ...term,
-                              courses: [...(term.courses ?? [])],
+                              courses: [
+                                  ...(term.courses ?? []),
+                              ],
                           })),
                           status: PLAN_STATUS.DRAFT,
                           updatedAt: new Date().toISOString(),
