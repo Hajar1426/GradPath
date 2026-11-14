@@ -38,6 +38,7 @@ import AdvisorDirectoryPage from './pages/student/AdvisorDirectoryPage';
 // Member 2
 import AdvisorProfilePage from './pages/student/AdvisorProfilePage';
 import AdvisorHomePage from './pages/advisor/AdvisorHomePage';
+import AdvisorEditProfilePage from './pages/advisor/AdvisorEditProfilePage';
 
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
@@ -47,6 +48,7 @@ const PAGES = {
     // Member 2
     '/student/advisors': AdvisorDirectoryPage,
     '/advisor': AdvisorHomePage,
+    '/advisor/profile': AdvisorEditProfilePage,
     '/admin/users': UserAccountsPage,
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,

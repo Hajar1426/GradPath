@@ -43,3 +43,14 @@
 @media (max-width: 800px) {
     .advisor-home__greeting { font-size: 22px; }
 }
+
+/* Edit profile: tag input (research areas, courses) */
+.advisor-edit__fixed { margin-top: 20px; }
+.tag-input__list { margin-bottom: 4px; }
+.tag-input__tag { display: inline-flex; align-items: center; gap: 6px; }
+.tag-input__remove { padding: 0 2px; border: 0; background: none; font-size: 16px; line-height: 1; color: var(--color-muted); cursor: pointer; }
+.tag-input__remove:hover { color: var(--color-danger); }
+.tag-input__row { display: flex; gap: 8px; }
+.tag-input__row input { flex: 1; min-width: 0; height: 42px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: 10px; font-size: 15px; }
+.tag-input__row input[aria-invalid='true'] { border-color: var(--color-danger); }
+.tag-input__row .btn { height: 42px; }
