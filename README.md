@@ -344,7 +344,7 @@ Sign in as **admin@kfupm.edu.sa**. The sidebar of every role is built from the s
 - Passwords are stored as plain text in the browser, only acceptable for a demo.
 - Each browser has its own copy of the data. Use **Settings → Reset demo data** to start again.
 
-## Team
+## Team 2
 
 | Member           | Area                                                                                                      |
 |------------------|-----------------------------------------------------------------------------------------------------------|
