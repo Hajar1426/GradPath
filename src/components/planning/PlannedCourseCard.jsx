@@ -2,6 +2,10 @@ export default function PlannedCourseCard({
     courseCode,
     courses = [],
     historical = false,
+    termCode,
+    availableTerms = [],
+    onRemove,
+    onMove,
 }) {
     const course = courses.find(
         (item) => item.code === courseCode
@@ -36,6 +40,44 @@ export default function PlannedCourseCard({
                         Previous
                     </span>
                 )}
+            </div>
+
+            <div className="planned-course-card__actions">
+                <select
+                    aria-label={`Move ${courseCode} to another term`}
+                    value=""
+                    onChange={(event) => {
+                        if (event.target.value) {
+                            onMove?.(
+                                courseCode,
+                                termCode,
+                                event.target.value
+                            );
+                        }
+                    }}
+                >
+                    <option value="">Move to...</option>
+
+                    {availableTerms
+                        .filter((term) => term.term !== termCode)
+                        .map((term) => (
+                            <option
+                                key={term.term}
+                                value={term.term}
+                            >
+                                Term {term.term}
+                            </option>
+                        ))}
+                </select>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        onRemove?.(termCode, courseCode)
+                    }
+                >
+                    Remove
+                </button>
             </div>
         </article>
     );

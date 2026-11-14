@@ -41,7 +41,7 @@
 
 
 /* =========================================================
-   LEGEND
+   REQUIREMENT LEGEND
    ========================================================= */
 
 .plan-checklist__legend {
@@ -79,7 +79,7 @@
 
 
 /* =========================================================
-   RULE CARD GRID
+   REQUIREMENT CARD GRID
    ========================================================= */
 
 .plan-checklist__grid {
@@ -90,7 +90,7 @@
 
 
 /* =========================================================
-   RULE CARDS
+   REQUIREMENT CARDS
    ========================================================= */
 
 .plan-rule-card {
@@ -126,7 +126,7 @@
 
 
 /* =========================================================
-   CARD STATE LABEL
+   REQUIREMENT STATE LABEL
    ========================================================= */
 
 .plan-rule-card__state {
@@ -154,7 +154,7 @@
 
 
 /* =========================================================
-   CARD CONTENT
+   REQUIREMENT CARD CONTENT
    ========================================================= */
 
 .plan-rule-card__progress {
@@ -195,36 +195,13 @@
 
 
 /* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 800px) {
-    .plan-page__header {
-        flex-direction: column;
-    }
-
-    .plan-checklist__heading {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .plan-checklist__grid {
-        grid-template-columns: 1fr;
-    }
-}
-/* =========================================================
-   PLAN BOARD
+   DEGREE TIMELINE
    ========================================================= */
 
 .plan-board {
     display: grid;
-    gap: 1.5rem;
-    margin-top: 1.75rem;
-}
-
-.plan-board__section {
-    display: grid;
-    gap: 0.85rem;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
 }
 
 .plan-board__heading {
@@ -242,38 +219,73 @@
 }
 
 .plan-board__heading p {
-    margin: 0.25rem 0 0;
+    margin: 0.2rem 0 0;
     color: var(--color-muted);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
 }
 
-.plan-board__self-reported {
-    padding: 0.25rem 0.6rem;
-    border: 1px solid var(--color-border);
-    border-radius: 999px;
-    background: var(--color-surface);
+.plan-board__scroll-hint {
+    flex-shrink: 0;
     color: var(--color-muted);
-    font-size: 0.72rem;
-    font-weight: 500;
-}
-
-.plan-board__terms {
-    display: grid;
-    gap: 0.75rem;
+    font-size: 0.7rem;
 }
 
 
 /* =========================================================
-   TERM ROW
+   HORIZONTAL TERM LIST
+   ========================================================= */
+
+.plan-board__scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 0.45rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+}
+
+.plan-board__scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.plan-board__scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.plan-board__scroll::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--color-border);
+}
+
+.plan-board__terms {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 0.7rem;
+
+    width: max-content;
+    min-width: 100%;
+}
+
+
+/* =========================================================
+   TERM COLUMN
    ========================================================= */
 
 .plan-term {
-    display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 1rem;
-    padding: 0.9rem;
+    display: flex;
+    flex: 0 0 235px;
+    flex-direction: column;
+    gap: 0.55rem;
+
+    min-width: 0;
+    min-height: 280px;
+    padding: 0.65rem;
+
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
+
     background: var(--color-surface);
 }
 
@@ -281,47 +293,65 @@
     background: #f8f7f3;
 }
 
+
+/* =========================================================
+   TERM HEADER
+   ========================================================= */
+
 .plan-term__info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: 0.75rem;
+    gap: 0.08rem;
+
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.05rem;
+
+    border-bottom: 1px solid var(--color-border);
 }
 
 .plan-term__info h3 {
     margin: 0;
     color: var(--color-text);
-    font-size: 0.95rem;
+    font-size: 0.84rem;
     font-weight: 600;
 }
 
 .plan-term__info p {
-    margin: 0.2rem 0 0;
+    margin: 0;
     color: var(--color-muted);
-    font-size: 0.75rem;
+    font-size: 0.64rem;
 }
 
 .plan-term__count {
+    margin-top: 0.2rem;
     color: var(--color-muted);
-    font-size: 0.72rem;
+    font-size: 0.62rem;
 }
 
 
 /* =========================================================
-   COURSES INSIDE TERM
+   COURSES INSIDE A TERM
    ========================================================= */
 
 .plan-term__courses {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.65rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.4rem;
 }
+
+
+/* =========================================================
+   PLANNED COURSE CARD
+   ========================================================= */
 
 .planned-course-card {
     min-width: 0;
-    padding: 0.75rem;
+    padding: 0.5rem 0.55rem;
+
     border: 1px solid var(--color-border);
-    border-radius: 9px;
+    border-radius: 8px;
+
     background: var(--color-surface);
 }
 
@@ -329,39 +359,44 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: 0.35rem;
 }
 
 .planned-course-card__top strong {
     color: var(--color-text);
-    font-size: 0.82rem;
+    font-size: 0.73rem;
     font-weight: 600;
 }
 
 .planned-course-card__area {
     flex-shrink: 0;
-    padding: 0.15rem 0.4rem;
+
+    padding: 0.1rem 0.32rem;
+
     border-radius: 999px;
     background: #edf6f1;
+
     color: var(--color-primary);
-    font-size: 0.65rem;
+    font-size: 0.56rem;
     font-weight: 600;
 }
 
 .planned-course-card__title {
-    margin: 0.35rem 0 0.65rem;
+    margin: 0.15rem 0 0.3rem;
+
     color: var(--color-muted);
-    font-size: 0.72rem;
-    line-height: 1.4;
+    font-size: 0.62rem;
+    line-height: 1.35;
 }
 
 .planned-course-card__meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
+    gap: 0.35rem;
+
     color: var(--color-muted);
-    font-size: 0.67rem;
+    font-size: 0.58rem;
 }
 
 .planned-course-card__history {
@@ -374,14 +409,19 @@
    ========================================================= */
 
 .plan-term__add {
-    min-height: 92px;
+    min-height: 44px;
+    padding: 0.4rem;
+
     border: 1px dashed var(--color-border);
-    border-radius: 9px;
+    border-radius: 8px;
+
     background: transparent;
     color: var(--color-primary);
+
     cursor: pointer;
+
     font: inherit;
-    font-size: 0.75rem;
+    font-size: 0.66rem;
     font-weight: 500;
 }
 
@@ -391,46 +431,58 @@
 }
 
 .plan-term__add span {
-    margin-right: 0.25rem;
-    font-size: 1rem;
+    margin-right: 0.2rem;
+    font-size: 0.85rem;
 }
 
 .plan-term__empty {
     margin: 0;
     color: var(--color-muted);
-    font-size: 0.78rem;
+    font-size: 0.68rem;
 }
 
 
 /* =========================================================
-   HISTORICAL NOTE
+   HISTORICAL COURSEWORK NOTE
    ========================================================= */
 
 .plan-board__history-note {
     margin: 0;
+
     color: var(--color-muted);
-    font-size: 0.72rem;
-    line-height: 1.5;
+    font-size: 0.65rem;
+    line-height: 1.45;
 }
 
 
 /* =========================================================
-   RESPONSIVE PLAN BOARD
+   RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1000px) {
-    .plan-term {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width: 800px) {
-    .plan-term__courses {
+    .plan-page__header {
+        flex-direction: column;
+    }
+
+    .plan-checklist__heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .plan-checklist__grid {
         grid-template-columns: 1fr;
     }
 
     .plan-board__heading {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    .plan-board__scroll-hint {
+        display: none;
+    }
+
+    .plan-term {
+        flex-basis: 215px;
     }
 }

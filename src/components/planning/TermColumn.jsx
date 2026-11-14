@@ -3,6 +3,9 @@ import PlannedCourseCard from './PlannedCourseCard';
 export default function TermColumn({
     term,
     courses = [],
+    allTerms = [],
+    onRemoveCourse,
+    onMoveCourse,
 }) {
     const isHistorical = term.type === 'historical';
     const termCourses = term.courses ?? [];
@@ -17,15 +20,13 @@ export default function TermColumn({
             }
         >
             <div className="plan-term__info">
-                <div>
-                    <h3>Term {term.term}</h3>
+                <h3>Term {term.term}</h3>
 
-                    <p>
-                        {isHistorical
-                            ? 'Previous coursework'
-                            : 'Planned semester'}
-                    </p>
-                </div>
+                <p>
+                    {isHistorical
+                        ? 'Previous coursework'
+                        : 'Planned semester'}
+                </p>
 
                 <span className="plan-term__count">
                     {termCourses.length}{' '}
@@ -42,24 +43,20 @@ export default function TermColumn({
                         courseCode={courseCode}
                         courses={courses}
                         historical={isHistorical}
+                        termCode={term.term}
+                        availableTerms={allTerms}
+                        onRemove={onRemoveCourse}
+                        onMove={onMoveCourse}
                     />
                 ))}
 
-                {!isHistorical && (
-                    <button
-                        type="button"
-                        className="plan-term__add"
-                    >
-                        <span aria-hidden="true">+</span>
-                        Add course
-                    </button>
-                )}
-
-                {isHistorical && termCourses.length === 0 && (
-                    <p className="plan-term__empty">
-                        No previous courses added.
-                    </p>
-                )}
+                <button
+                    type="button"
+                    className="plan-term__add"
+                >
+                    <span aria-hidden="true">+</span>
+                    Add course
+                </button>
             </div>
         </section>
     );
