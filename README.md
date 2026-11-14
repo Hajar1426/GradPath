@@ -70,45 +70,165 @@ This is a prototype, so some things are simulated on purpose:
 - **Audit log:** account changes (created, activated, disabled, role changed, password reset and more) are recorded for the admin.
 
 ## How the code is organised
-'''
 src/
-  main.jsx       Starts the app
-  App.jsx        Wraps the app in its providers and routes
-  routes.jsx     All routes, plus the page registry
-  index.css      Imports every CSS file in styles/
-  assets/        Images and logos
-  components/
-    common/      Shared controls (Button, Input, Select, Textarea, DataTable, Pagination,
-                 SearchBar, Tabs, Modal, ConfirmationDialog, Toast, Alert, StatusBadge,
-                 EmptyState, LoadingState, ErrorState, BackLink) and the view-only helpers
-                 EditOnly and ReadOnlyBanner
-    layout/      Sidebar with its icons (NavIcon), page header, protected route, app layout
-  context/       Data, authentication and toast providers
-  data/          Demo data (users, roster, advisors, courses, offerings, degree plans,
-                 announcements, reports, ...) and the agreed status values (statusValues.js)
-  hooks/         useData, useAuth, useToast, useNotifications, useAnnouncementCount,
-                 useStudentInfo, useReadOnly, useSecuritySettings, useSessionTimeout
-  pages/
-    common/      Landing, sign in, sign up, activation, forgot and reset password,
-                 notifications, announcements, settings, 403 and 404 pages
-    admin/       Dashboard, user accounts, add user, audit log, security settings
-    student/     Advisor directory and profiles, course resources, degree plan builder
-    advisor/     Home, students, alerts, annual report review, profile editing
-    coordinator/ Dashboard, statistics, student list and record import, advisor capacity,
-                 courses and schedule, requests, resources, announcements
-  styles/        CSS files, imported from index.css (variables, controls, layout,
-                 landing, notifications, settings, planning, advisor, coordinator)
-  utils/         Small helpers, grouped by use:
-                 roles and navigation (roles.js)
-                 account rules (emailRules, activation, studyRules, auditLabels)
-                 planning rules (validatePlan, checkPrerequisites, checkConflicts,
-                 validateProgramRequirements, schedule)
-                 advisors and coordinator (computeAvailability, advisorHelpers,
-                 coordinatorHelpers, coordinatorReports, offeringWarnings)
-                 import and files (importRules, parseXlsx, downloadCsv, downloadXlsx,
-                 resourceFiles)
-                 general (storage, formatDate, matchesSearch)
-'''
+├── assets/                          Images
+├── components/
+│   ├── advising/                    Advisor profile pieces (TagInput)
+│   ├── common/                      Shared controls
+│   │   ├── Alert.jsx
+│   │   ├── BackLink.jsx
+│   │   ├── Button.jsx
+│   │   ├── ConfirmationDialog.jsx
+│   │   ├── DataTable.jsx
+│   │   ├── EditOnly.jsx             Hides edit actions for view-only roles
+│   │   ├── EmptyState.jsx
+│   │   ├── ErrorState.jsx
+│   │   ├── Input.jsx
+│   │   ├── LoadingState.jsx
+│   │   ├── Modal.jsx
+│   │   ├── Pagination.jsx
+│   │   ├── ReadOnlyBanner.jsx
+│   │   ├── SearchBar.jsx
+│   │   ├── Select.jsx
+│   │   ├── StatusBadge.jsx
+│   │   ├── Tabs.jsx
+│   │   ├── Textarea.jsx
+│   │   └── Toast.jsx
+│   ├── coordinator/                 Coordinator-only pieces (dialogs, charts, import tables,
+│   │                                availability badge, weekly schedule, stat cards, ...)
+│   ├── layout/                      App frame
+│   │   ├── AppLayout.jsx
+│   │   ├── NavIcon.jsx
+│   │   ├── PageHeader.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   └── Sidebar.jsx
+│   └── planning/                    Degree plan builder pieces
+│       ├── CoursePicker.jsx
+│       ├── PlanBoard.jsx
+│       ├── PlanChecklist.jsx
+│       ├── PlannedCourseCard.jsx
+│       └── TermColumn.jsx
+├── context/                         Providers
+│   ├── AuthContext.jsx
+│   ├── contexts.js
+│   ├── DataContext.jsx
+│   └── ToastContext.jsx
+├── data/                            Demo data and the agreed status values
+│   ├── academicCalendar.js
+│   ├── advisors.js
+│   ├── announcements.js
+│   ├── annualReports.js
+│   ├── attentionItems.js
+│   ├── capacityOverrides.js
+│   ├── courseAuthorizations.js
+│   ├── courses.js
+│   ├── degreePlans.js
+│   ├── imports.js
+│   ├── index.js
+│   ├── notifications.js
+│   ├── offerings.js
+│   ├── programRules.js
+│   ├── resources.js
+│   ├── roster.js                    Approved student list
+│   ├── statusValues.js
+│   ├── students.js
+│   └── users.js
+├── hooks/
+│   ├── useAnnouncementCount.js
+│   ├── useAuth.js
+│   ├── useData.js
+│   ├── useNotifications.js
+│   ├── useReadOnly.js
+│   ├── useSecuritySettings.js
+│   ├── useSessionTimeout.js
+│   ├── useStudentInfo.js
+│   └── useToast.js
+├── pages/
+│   ├── admin/                       System Administrator
+│   │   ├── AddUserPage.jsx
+│   │   ├── AdminDashboardPage.jsx
+│   │   ├── AuditLogPage.jsx
+│   │   ├── SecuritySettingsPage.jsx
+│   │   └── UserAccountsPage.jsx
+│   ├── advisor/
+│   │   ├── AdvisorAlertsPage.jsx
+│   │   ├── AdvisorEditProfilePage.jsx
+│   │   ├── AdvisorHomePage.jsx
+│   │   ├── AdvisorReportReviewPage.jsx
+│   │   ├── AdvisorReportsPage.jsx
+│   │   ├── AdvisorStudentDetailPage.jsx
+│   │   └── MyStudentsPage.jsx
+│   ├── common/                      Pages for everyone
+│   │   ├── ActivatePage.jsx
+│   │   ├── AnnouncementsPage.jsx
+│   │   ├── ForbiddenPage.jsx
+│   │   ├── ForgotPasswordPage.jsx
+│   │   ├── LandingPage.jsx
+│   │   ├── NotFoundPage.jsx
+│   │   ├── NotificationsPage.jsx
+│   │   ├── PlaceholderPage.jsx
+│   │   ├── ResetPasswordPage.jsx
+│   │   ├── SettingsPage.jsx
+│   │   ├── SignInPage.jsx
+│   │   └── SignUpPage.jsx
+│   ├── coordinator/
+│   │   ├── AdvisorCapacityPage.jsx
+│   │   ├── announcementActions.js
+│   │   ├── AnnouncementEditorPage.jsx
+│   │   ├── AnnouncementsManagePage.jsx
+│   │   ├── CoordinatorDashboardPage.jsx
+│   │   ├── CoursesSchedulePage.jsx
+│   │   ├── ImportResultPage.jsx
+│   │   ├── OfferingEditorPage.jsx
+│   │   ├── OfferingsPanel.jsx
+│   │   ├── RecordImportPage.jsx
+│   │   ├── RequestsPanel.jsx
+│   │   ├── ResourcesManagePage.jsx
+│   │   ├── StatisticsPage.jsx
+│   │   └── StudentListPage.jsx
+│   └── student/
+│       ├── AdvisorDirectoryPage.jsx
+│       ├── AdvisorProfilePage.jsx
+│       ├── CourseResourcesPage.jsx
+│       └── DegreePlanBuilderPage.jsx
+├── styles/                          CSS, imported from index.css
+│   ├── advisor.css
+│   ├── controls.css
+│   ├── coordinator.css
+│   ├── landing.css
+│   ├── layout.css
+│   ├── notifications.css
+│   ├── planning.css
+│   ├── settings.css
+│   └── variables.css
+├── utils/                           Small helpers
+│   ├── activation.js
+│   ├── advisorHelpers.js
+│   ├── auditLabels.js
+│   ├── checkConflicts.js
+│   ├── checkPrerequisites.js
+│   ├── computeAvailability.js
+│   ├── coordinatorHelpers.js
+│   ├── coordinatorReports.js
+│   ├── downloadCsv.js
+│   ├── downloadXlsx.js
+│   ├── emailRules.js
+│   ├── formatDate.js
+│   ├── importRules.js
+│   ├── matchesSearch.js
+│   ├── offeringWarnings.js
+│   ├── parseXlsx.js
+│   ├── resourceFiles.js
+│   ├── roles.js                     Roles and sidebar links
+│   ├── schedule.js
+│   ├── storage.js
+│   ├── studyRules.js
+│   ├── validatePlan.js
+│   └── validateProgramRequirements.js
+├── App.jsx                          Providers and routes
+├── index.css                        Imports every CSS file
+├── main.jsx                         Starts the app
+└── routes.jsx                       All routes and the page registry
 
 ### Adding a page
 
