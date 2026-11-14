@@ -1,0 +1,10 @@
+GradPath demo resource: Thesis proposal template
+
+1. Title
+2. Problem statement
+3. Research questions
+4. Related work
+5. Proposed method
+6. Evaluation plan
+7. Timeline (by semester)
+8. References
