@@ -77,3 +77,12 @@
 .rating-option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border: 1px solid var(--color-border); border-radius: 10px; cursor: pointer; }
 .rating-option input { margin-top: 4px; accent-color: var(--color-primary); }
 .rating-option--selected { border-color: var(--color-primary); background: #f1f7f4; }
+
+/* Warning alerts */
+.alert-cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.alert-card { padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 10px; }
+.alert-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.alert-card__text { margin: 8px 0 0; font-size: 14px; color: var(--color-muted); }
+.alert-card__text a { color: var(--color-primary); }
+.alert-card__note { margin: 8px 0 0; font-size: 14px; }
+.alert-card__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
