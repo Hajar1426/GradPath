@@ -11,14 +11,9 @@ import { useAnnouncementCount } from '../../hooks/useAnnouncementCount';
 import { PLAN_STATUS, PUBLISH_STATUS, REPORT_RATING, REPORT_STATUS, ROLES } from '../../data/statusValues';
 import { academicCalendar } from '../../data/academicCalendar';
 import { STUDY_LOAD_LABEL, getMinCourses, getStudyLoad } from '../../utils/studyRules';
-import { CURRENT_TERM, planOf, plannedCourses } from '../../utils/advisorHelpers';
+import { CURRENT_TERM, completedCourses, creditsOf, planOf, plannedCourses } from '../../utils/advisorHelpers';
 import { greeting, todayIso } from '../../utils/dateHelpers';
 import { formatDate } from '../../utils/formatDate';
-
-// Total credits of a list of course codes, using the course catalog. Unknown codes count as 0.
-function creditsOf(codes, catalog) {
-    return codes.reduce((sum, code) => sum + (catalog.find((c) => c.code === code)?.credits ?? 0), 0);
-}
 
 // Student home page (Figma: "Student view - Home Page").
 export default function StudentDashboardPage() {
@@ -36,7 +31,7 @@ export default function StudentDashboardPage() {
 
     // Degree plan (Member 3): completed courses and this term's plan.
     const plan = planOf(data, currentUser?.id);
-    const completed = (plan?.terms ?? []).filter((t) => t.type === 'historical').flatMap((t) => t.courses);
+    const completed = completedCourses(plan);
     const thisTerm = plannedCourses(plan, CURRENT_TERM);
     const catalog = data.courses ?? [];
 
