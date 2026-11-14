@@ -23,11 +23,15 @@ export const HOME_BY_ROLE = {
     [ROLES.CHAIRPERSON]: '/coordinator',
 };
 
+// Labels follow the Figma coordinator screens (labelOf shows the text after the last dot).
 const COORDINATOR_NAV = [
-    { to: '/coordinator', label: 'nav.dashboard' },
-    { to: '/coordinator/capacity', label: 'nav.capacity' },
-    { to: '/coordinator/import', label: 'nav.import' },
+    { to: '/coordinator', label: 'nav.Home Page' },
     { to: '/coordinator/statistics', label: 'nav.statistics' },
+    { to: '/coordinator/offerings', label: 'nav.Courses & Schedule' },
+    { to: '/coordinator/capacity', label: 'nav.CCM Faculty' },
+    { to: '/coordinator/students', label: 'nav.students' },
+    { to: '/coordinator/import', label: 'nav.import' },
+    { to: '/coordinator/resources', label: 'nav.Course Resources' },
     { to: '/coordinator/announcements', label: 'nav.announcements' },
     { to: '/notifications', label: 'nav.notifications' },
     { to: '/settings', label: 'nav.settings' },
@@ -39,6 +43,7 @@ export const NAV_BY_ROLE = {
         { to: '/student/advisors', label: 'nav.advisors' },
         { to: '/student/plan', label: 'nav.plan' },
         { to: '/student/reports', label: 'nav.reports' },
+        { to: '/student/resources', label: 'nav.resources' },
         { to: '/student/profile', label: 'nav.profile', hidden: true },
         { to: '/announcements', label: 'nav.announcements' },
         { to: '/notifications', label: 'nav.notifications' },

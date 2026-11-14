@@ -1,7 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { ROLES } from './data/statusValues';
-import { NAV_BY_ROLE, HOME_BY_ROLE, labelOf, BASE_ROLES, ROLES_WITH_ACCESS } from './utils/roles';import ProtectedRoute from './components/layout/ProtectedRoute';
+import { NAV_BY_ROLE, HOME_BY_ROLE, labelOf, BASE_ROLES, ROLES_WITH_ACCESS } from './utils/roles';
+import ProtectedRoute from './components/layout/ProtectedRoute';
 import AppLayout from './components/layout/AppLayout';
 import PlaceholderPage from './pages/common/PlaceholderPage';
 import SignInPage from './pages/common/SignInPage';
@@ -19,6 +20,20 @@ import AddUserPage from './pages/admin/AddUserPage';
 import AuditLogPage from './pages/admin/AuditLogPage';
 import SecuritySettingsPage from './pages/admin/SecuritySettingsPage';
 import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+// Member 4
+import CoordinatorDashboardPage from './pages/coordinator/CoordinatorDashboardPage';
+import AdvisorCapacityPage from './pages/coordinator/AdvisorCapacityPage';
+import RecordImportPage from './pages/coordinator/RecordImportPage';
+import ImportResultPage from './pages/coordinator/ImportResultPage';
+import StudentListPage from './pages/coordinator/StudentListPage';
+import StatisticsPage from './pages/coordinator/StatisticsPage';
+import CoursesSchedulePage from './pages/coordinator/CoursesSchedulePage';
+import OfferingEditorPage from './pages/coordinator/OfferingEditorPage';
+import AnnouncementsManagePage from './pages/coordinator/AnnouncementsManagePage';
+import AnnouncementEditorPage from './pages/coordinator/AnnouncementEditorPage';
+import ResourcesManagePage from './pages/coordinator/ResourcesManagePage';
+import AnnouncementsPage from './pages/common/AnnouncementsPage';
+import CourseResourcesPage from './pages/student/CourseResourcesPage';
 
 const SHARED_PATHS = ['/settings', '/announcements', '/notifications'];
 
@@ -29,12 +44,30 @@ const PAGES = {
     '/admin/audit': AuditLogPage,
     '/admin/security': SecuritySettingsPage,
     '/admin': AdminDashboardPage,
+    // Member 4
+    '/coordinator': CoordinatorDashboardPage,
+    '/coordinator/capacity': AdvisorCapacityPage,
+    '/coordinator/students': StudentListPage,
+    '/coordinator/import': RecordImportPage,
+    '/coordinator/offerings': CoursesSchedulePage,
+    '/coordinator/statistics': StatisticsPage,
+    '/coordinator/announcements': AnnouncementsManagePage,
+    '/coordinator/resources': ResourcesManagePage,
+    '/student/resources': CourseResourcesPage,
 };
 
 // Pages that are not in the sidebar (details pages), per role
 const EXTRA_ROUTES = {
     // [ROLES.STUDENT]: [{ path: '/student/advisors/:id', element: <AdvisorPublicProfilePage /> }],
     [ROLES.ADMIN]: [{ path: '/admin/users/new', element: <AddUserPage /> }],
+    // Member 4 (dean and chairperson get these too, in view-only mode)
+    [ROLES.COORDINATOR]: [
+        { path: '/coordinator/import/result', element: <ImportResultPage /> },
+        // Requests now live in a tab of Courses & Schedule. Keep the old address working.
+        { path: '/coordinator/requests', element: <Navigate to="/coordinator/offerings?tab=requests" replace /> },
+        { path: '/coordinator/offerings/:id', element: <OfferingEditorPage /> },
+        { path: '/coordinator/announcements/:id', element: <AnnouncementEditorPage /> },
+    ],
 };
 
 export default function AppRoutes() {
@@ -78,7 +111,7 @@ export default function AppRoutes() {
             <Route element={<ProtectedRoute />}>
                 <Route element={<AppLayout />}>
                     <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="/announcements" element={<PlaceholderPage title="Announcements" />} />
+                    <Route path="/announcements" element={<AnnouncementsPage />} />
                     <Route path="/notifications" element={<NotificationsPage />} />
                 </Route>
             </Route>
